@@ -1,4 +1,4 @@
-package com.netcracker.web;
+package com.netcracker.web.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -7,9 +7,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class MainServlet extends HttpServlet {
+
+    private void doRequest(HttpServletRequest req, HttpServletResponse resp){
+
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doRequest(req,resp);
+    }
 
-        resp.getWriter().write("Hello, world");
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doRequest(req, resp);
     }
 }

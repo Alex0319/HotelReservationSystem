@@ -1,4 +1,4 @@
-package com.netcracker.web.commands.commandfactory.commandfactoriesimplementation;
+package com.netcracker.web.commands.commandfactory.commandfactoriesimpl;
 
 import com.netcracker.web.commands.commandfactory.CommandFactory;
 
