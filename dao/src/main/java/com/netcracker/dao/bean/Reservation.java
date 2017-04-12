@@ -7,7 +7,6 @@ public class Reservation extends Entity{
     private User user;
     private int roomNumber;
     private Date dateIn, dateOut;
-    private int daysCount;
 
     public Reservation(){}
 
@@ -17,7 +16,6 @@ public class Reservation extends Entity{
         this.roomNumber = roomNumber;
         this.dateIn = dateIn;
         this.dateOut = dateOut;
-        this.daysCount = daysCount;
     }
 
     public int getId() {
@@ -60,14 +58,6 @@ public class Reservation extends Entity{
         this.dateOut = dateOut;
     }
 
-    public int getDaysCount() {
-        return daysCount;
-    }
-
-    public void setDaysCount(int daysCount) {
-        this.daysCount = daysCount;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,7 +67,6 @@ public class Reservation extends Entity{
 
         if (id != that.id) return false;
         if (roomNumber != that.roomNumber) return false;
-        if (daysCount != that.daysCount) return false;
         if (!user.equals(that.user)) return false;
         if (!dateIn.equals(that.dateIn)) return false;
         return dateOut.equals(that.dateOut);
@@ -90,7 +79,6 @@ public class Reservation extends Entity{
         result = 31 * result + roomNumber;
         result = 31 * result + dateIn.hashCode();
         result = 31 * result + dateOut.hashCode();
-        result = 31 * result + daysCount;
         return result;
     }
 
@@ -102,7 +90,6 @@ public class Reservation extends Entity{
         sb.append(", roomNumber=").append(roomNumber);
         sb.append(", dateIn=").append(dateIn);
         sb.append(", dateOut=").append(dateOut);
-        sb.append(", daysCount=").append(daysCount);
         sb.append('}');
         return sb.toString();
     }

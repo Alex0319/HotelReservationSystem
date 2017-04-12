@@ -14,9 +14,9 @@ public final class Constants {
     public static final String REMOVE_ROOM = "DELETE FROM `db_hotelreservation`.`room` WHERE `id`='?'";
     public static final String UPDATE_ROOM = "UPDATE `db_hotelreservation`.`room` SET `id_room_type`='?', `floor`='?', `phone`='?'";
 
-    public static final String GET_ALL_RESERVATIONS = "SELECT `id`, `id_user`, `name`, `surname`, `room_number`, `date-in`, `date-out`, `days_count` " +
+    public static final String GET_ALL_RESERVATIONS = "SELECT `id`, `id_user`, `name`, `surname`, `rooms_count`, `date-in`, `date-out` " +
             "FROM (`db_hotelreservation`.`reservation` LEFT OUTER JOIN `db_hotelreservation`.`user` ON `reservation`.`id_user` = `user`.`id`)";
-    public static final String ADD_RESERVATION = "INSERT INTO `db_hotelreservation`.`reservation` (`rooms_count`, `beds_count`, `cost_per_day`, `additional_info`) VALUES ('?', '?', '?', '?')";
+    public static final String ADD_RESERVATION = "INSERT INTO `db_hotelreservation`.`reservation` (`id`,`id_user`,`rooms_count`, `date-in`, `date-out`) VALUES ('?', '?', '?', '?', `?`)";
     public static final String REMOVE_RESERVATION = "DELETE FROM `db_hotelreservation`.`reservation` WHERE `id`='?'";
-    public static final String UPDATE_RESERVATION = "UPDATE `db_hotelreservation`.`reservation` SET `rooms_count`='?', `beds_count`='?', `cost_per_day`='?', `additional_info`='?' WHERE `id`='?'";
+    public static final String UPDATE_RESERVATION = "UPDATE `db_hotelreservation`.`reservation` SET `id_user`='?', `rooms_count`='?', `date-in`='?', `date-out`='?' WHERE `id`='?'";
 }

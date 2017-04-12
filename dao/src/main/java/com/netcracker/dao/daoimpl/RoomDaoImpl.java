@@ -77,8 +77,8 @@ public class RoomDaoImpl extends AbstractDao implements RoomDao {
         PreparedStatement statement = null;
         try {
             connection = getConnection();
-            statement.setInt(1, room.getId());
             statement = connection.prepareStatement(REMOVE_ROOM);
+            statement.setInt(1, room.getId());
             statement.execute();
         } catch (SQLException e) {
             throw new DaoException(e);

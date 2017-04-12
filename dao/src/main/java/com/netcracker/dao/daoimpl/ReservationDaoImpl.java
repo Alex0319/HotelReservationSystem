@@ -47,7 +47,6 @@ public class ReservationDaoImpl extends AbstractDao implements ReservationDao {
                 reservation.setRoomNumber(resultSet.getInt("room_number"));
                 reservation.setDateIn(resultSet.getDate("date-in"));
                 reservation.setDateOut(resultSet.getDate("date-out"));
-                reservation.setDaysCount(resultSet.getInt("days_count"));
 
                 reservations.add(reservation);
             }
@@ -79,8 +78,8 @@ public class ReservationDaoImpl extends AbstractDao implements ReservationDao {
         PreparedStatement statement = null;
         try {
             connection = getConnection();
-            statement.setInt(1, reservation.getId());
             statement = connection.prepareStatement(REMOVE_RESERVATION);
+            statement.setInt(1, reservation.getId());
             statement.execute();
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -109,7 +108,6 @@ public class ReservationDaoImpl extends AbstractDao implements ReservationDao {
         statement.setInt(2, reservation.getRoomNumber());
         statement.setDate(3, reservation.getDateIn());
         statement.setDate(4, reservation.getDateOut());
-        statement.setInt(5, reservation.getDaysCount());
         return statement;
     }
 }

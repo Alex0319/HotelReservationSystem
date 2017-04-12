@@ -66,8 +66,8 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
         PreparedStatement statement = null;
         try {
             connection = getConnection();
-            statement.setInt(1, user.getId());
             statement = connection.prepareStatement(REMOVE_USER);
+            statement.setInt(1, user.getId());
             statement.execute();
         } catch (SQLException e) {
             throw new DaoException(e);
