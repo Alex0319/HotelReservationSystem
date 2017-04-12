@@ -1,6 +1,6 @@
-package com.netcracker.dao.beans;
+package com.netcracker.dao.bean;
 
-public class User {
+public class User extends Entity {
     private int id;
     private String name;
     private String surname;
@@ -9,6 +9,19 @@ public class User {
     private String passportNumber;
     private String password;
     private String email;
+
+    public User(){}
+
+    public User(int id, String name, String surname, String mobilePhone, String login, String passportNumber, String password, String email) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.mobilePhone = mobilePhone;
+        this.login = login;
+        this.passportNumber = passportNumber;
+        this.password = password;
+        this.email = email;
+    }
 
     public int getId() {
         return id;
@@ -106,15 +119,16 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", mobilePhone='" + mobilePhone + '\'' +
-                ", login='" + login + '\'' +
-                ", passportNumber='" + passportNumber + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        final StringBuilder sb = new StringBuilder("User{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", surname='").append(surname).append('\'');
+        sb.append(", mobilePhone='").append(mobilePhone).append('\'');
+        sb.append(", login='").append(login).append('\'');
+        sb.append(", passportNumber='").append(passportNumber).append('\'');
+        sb.append(", password='").append(password).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

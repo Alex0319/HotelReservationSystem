@@ -1,8 +1,18 @@
-package com.netcracker.dao.beans;
+package com.netcracker.dao.bean;
 
-public class RoomType {
+public class RoomType extends Entity{
     private int id, roomsCount, bedsCount, costPerDay;
     private String additionalInfo;
+
+    public RoomType(){}
+
+    public RoomType(int id, int roomsCount, int bedsCount, int costPerDay, String additionalInfo) {
+        this.id = id;
+        this.roomsCount = roomsCount;
+        this.bedsCount = bedsCount;
+        this.costPerDay = costPerDay;
+        this.additionalInfo = additionalInfo;
+    }
 
     public int getId() {
         return id;
@@ -70,12 +80,13 @@ public class RoomType {
 
     @Override
     public String toString() {
-        return "RoomType{" +
-                "id=" + id +
-                ", roomsCount=" + roomsCount +
-                ", bedsCount=" + bedsCount +
-                ", costPerDay=" + costPerDay +
-                ", additionalInfo='" + additionalInfo + '\'' +
-                '}';
+        final StringBuilder sb = new StringBuilder("RoomType{");
+        sb.append("id=").append(id);
+        sb.append(", roomsCount=").append(roomsCount);
+        sb.append(", bedsCount=").append(bedsCount);
+        sb.append(", costPerDay=").append(costPerDay);
+        sb.append(", additionalInfo='").append(additionalInfo).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

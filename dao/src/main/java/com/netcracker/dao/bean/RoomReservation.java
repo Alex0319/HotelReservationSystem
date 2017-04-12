@@ -1,8 +1,15 @@
-package com.netcracker.dao.beans;
+package com.netcracker.dao.bean;
 
-public class RoomReservation {
+public class RoomReservation extends Entity{
     private Room room;
     private Reservation reservation;
+
+    public RoomReservation(){}
+
+    public RoomReservation(Room room, Reservation reservation) {
+        this.room = room;
+        this.reservation = reservation;
+    }
 
     public Room getRoom() {
         return room;
@@ -40,9 +47,10 @@ public class RoomReservation {
 
     @Override
     public String toString() {
-        return "RoomReservation{" +
-                "room=" + room +
-                ", reservation=" + reservation +
-                '}';
+        final StringBuilder sb = new StringBuilder("RoomReservation{");
+        sb.append("room=").append(room);
+        sb.append(", reservation=").append(reservation);
+        sb.append('}');
+        return sb.toString();
     }
 }

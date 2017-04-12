@@ -1,6 +1,6 @@
-package com.netcracker.web.commands.commandfactory.commandfactoriesimpl;
+package com.netcracker.web.command.commandfactory.commandfactoriesimpl;
 
-import com.netcracker.web.commands.commandfactory.CommandFactory;
+import com.netcracker.web.command.commandfactory.CommandFactory;
 
 import java.util.HashMap;
 import java.util.Map;

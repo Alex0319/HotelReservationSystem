@@ -1,6 +1,6 @@
 package com.netcracker.dao;
 
-import com.netcracker.dao.beans.Room;
+import com.netcracker.dao.bean.Room;
 import com.netcracker.dao.exception.DaoException;
 
 import java.util.List;

@@ -1,10 +1,19 @@
-package com.netcracker.dao.beans;
+package com.netcracker.dao.bean;
 
-public class Room {
+public class Room extends Entity{
     private int id;
     private int floor;
     private String phone;
     private RoomType roomType;
+
+    public Room() {}
+
+    public Room(int id, int floor, String phone, RoomType roomType) {
+        this.id = id;
+        this.floor = floor;
+        this.phone = phone;
+        this.roomType = roomType;
+    }
 
     public int getId() {
         return id;
@@ -62,11 +71,12 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room{" +
-                "id=" + id +
-                ", floor=" + floor +
-                ", phone='" + phone + '\'' +
-                ", roomType=" + roomType +
-                '}';
+        final StringBuilder sb = new StringBuilder("Room{");
+        sb.append("id=").append(id);
+        sb.append(", floor=").append(floor);
+        sb.append(", phone='").append(phone).append('\'');
+        sb.append(", roomType=").append(roomType);
+        sb.append('}');
+        return sb.toString();
     }
 }
