@@ -10,7 +10,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>mainServlet</servlet-name>
-        <url-pattern>/mainServlet</url-pattern>
+        <url-pattern>/servlet</url-pattern>
     </servlet-mapping>
 
     <resource-ref>

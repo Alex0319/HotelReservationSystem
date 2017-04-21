@@ -1,0 +1,130 @@
+package com.netcracker.dao.impl;
+
+
+import com.netcracker.dao.AbstractDao;
+import com.netcracker.dao.RoleDao;
+import com.netcracker.dao.bean.Role;
+import com.netcracker.dao.builder.RoleBuilder;
+import com.netcracker.dao.exception.DaoException;
+import com.netcracker.dao.util.ErrorStringBuilder;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static com.netcracker.dao.constant.Constants.*;
+
+public class RoleDaoImpl extends AbstractDao implements RoleDao {
+    public List<String> getRoleHeaders(Connection connection) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<String> headers = new ArrayList<String>();
+        StringBuilder stringBuilder = new StringBuilder();
+        try {
+            statement = connection.prepareStatement(GET_ALL_ROLES_HEADERS);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                stringBuilder.append(resultSet.getInt("id")+" ");
+                stringBuilder.append(resultSet.getString("name_role"));
+                headers.add(stringBuilder.toString());
+                stringBuilder.setLength(0);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            closeStatement(statement, resultSet);
+        }
+        return headers;
+    }
+
+    public List<Role> getRoles(Connection connection) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Role> roles = new ArrayList<Role>();
+        RoleBuilder roleBuilder = new RoleBuilder();
+        try {
+            statement = connection.prepareStatement(GET_ALL_ROLES);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                roles.add(roleBuilder.id(resultSet.getInt("id"))
+                        .nameRole(resultSet.getString("name_role"))
+                        .update(resultSet.getByte("update"))
+                        .delete(resultSet.getByte("delete"))
+                        .insert(resultSet.getByte("insert"))
+                        .create(resultSet.getByte("create"))
+                        .select(resultSet.getByte("select"))
+                        .drop(resultSet.getByte("drop"))
+                        .grant(resultSet.getByte("grant"))
+                        .build());
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            closeStatement(statement, resultSet);
+        }
+        return roles;
+    }
+
+    public void addRole(Role role,Connection connection) throws DaoException {
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(ADD_ROLE);
+            statement = fillStatement(statement, role);
+            statement.execute();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            closeStatement(statement, null);
+        }
+    }
+
+    public void removeRole(Role role,Connection connection) throws DaoException {
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(REMOVE_ROLE);
+            statement.setInt(1, role.getId());
+            statement.execute();
+        }catch (SQLIntegrityConstraintViolationException e){
+            throw new DaoException(buildMessage(role, e.getMessage()) ,e);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            closeStatement(statement, null);
+        }
+    }
+
+    public void updateRole(Role role,Connection connection) throws DaoException {
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(UPDATE_ROLE);
+            statement = fillStatement(statement, role);
+            statement.setInt(9, role.getId());
+            statement.execute();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            closeStatement(statement, null);
+        }
+    }
+
+    private PreparedStatement fillStatement(PreparedStatement statement, Role role) throws SQLException {
+        statement.setString(1, role.getNameRole());
+        statement.setInt(2, role.getUpdate());
+        statement.setInt(3, role.getDelete());
+        statement.setInt(4, role.getInsert());
+        statement.setInt(5, role.getCreate());
+        statement.setInt(6, role.getSelect());
+        statement.setInt(7, role.getDrop());
+        statement.setInt(8, role.getGrant());
+        return statement;
+    }
+
+    private String buildMessage(Role role, String errorMessage){
+        Map<String,String> idNames = new HashMap<String, String>();
+        idNames.put("id",Integer.toString(role.getId()));
+        return ErrorStringBuilder.buildErrorString(idNames,errorMessage);
+    }
+
+}

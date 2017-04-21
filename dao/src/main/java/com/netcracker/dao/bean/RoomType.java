@@ -1,17 +1,27 @@
 package com.netcracker.dao.bean;
 
-public class RoomType extends Entity{
-    private int id, roomsCount, bedsCount, costPerDay;
+import com.netcracker.dao.builder.RoomTypeBuilder;
+
+public class RoomType {
+    private int id;
+    private int roomsCount;
+    private int bedsCount;
+    private int bathroomsCount;
+    private int size;
+    private float costPerDay;
     private String additionalInfo;
 
-    public RoomType(){}
+    public RoomType() {super();
+    }
 
-    public RoomType(int id, int roomsCount, int bedsCount, int costPerDay, String additionalInfo) {
-        this.id = id;
-        this.roomsCount = roomsCount;
-        this.bedsCount = bedsCount;
-        this.costPerDay = costPerDay;
-        this.additionalInfo = additionalInfo;
+    public RoomType(RoomTypeBuilder roomTypeBuilder){
+        this.id = roomTypeBuilder.getId();
+        this.roomsCount = roomTypeBuilder.getRoomsCount();
+        this.bedsCount = roomTypeBuilder.getBedsCount();
+        this.costPerDay = roomTypeBuilder.getCostPerDay();
+        this.additionalInfo = roomTypeBuilder.getAdditionalInfo();
+        this.bathroomsCount = roomTypeBuilder.getBathroomsCount();
+        this.size = roomTypeBuilder.getSize();
     }
 
     public int getId() {
@@ -38,11 +48,11 @@ public class RoomType extends Entity{
         this.bedsCount = bedsCount;
     }
 
-    public int getCostPerDay() {
+    public float getCostPerDay() {
         return costPerDay;
     }
 
-    public void setCostPerDay(int costPerDay) {
+    public void setCostPerDay(float costPerDay) {
         this.costPerDay = costPerDay;
     }
 
@@ -54,39 +64,19 @@ public class RoomType extends Entity{
         this.additionalInfo = additionalInfo;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        RoomType roomType = (RoomType) o;
-
-        if (id != roomType.id) return false;
-        if (roomsCount != roomType.roomsCount) return false;
-        if (bedsCount != roomType.bedsCount) return false;
-        if (costPerDay != roomType.costPerDay) return false;
-        return additionalInfo.equals(roomType.additionalInfo);
+    public int getBathroomsCount() {
+        return bathroomsCount;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + roomsCount;
-        result = 31 * result + bedsCount;
-        result = 31 * result + costPerDay;
-        result = 31 * result + additionalInfo.hashCode();
-        return result;
+    public void setBathroomsCount(int bathroomsCount) {
+        this.bathroomsCount = bathroomsCount;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("RoomType{");
-        sb.append("id=").append(id);
-        sb.append(", roomsCount=").append(roomsCount);
-        sb.append(", bedsCount=").append(bedsCount);
-        sb.append(", costPerDay=").append(costPerDay);
-        sb.append(", additionalInfo='").append(additionalInfo).append('\'');
-        sb.append('}');
-        return sb.toString();
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }

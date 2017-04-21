@@ -1,29 +1,26 @@
 package com.netcracker.dao.bean;
 
+import com.netcracker.dao.builder.ReservationBuilder;
+
 import java.sql.Date;
 
-public class Reservation extends Entity{
+public class Reservation {
     private int id;
+    private Date dateIn;
+    private Date dateOut;
     private User user;
-    private int roomNumber;
-    private Date dateIn, dateOut;
+    private int costAdditionalServices;
+    private Discount discount;
 
-    public Reservation(){}
+    public Reservation(){super();}
 
-    public Reservation(int id, User user, int roomNumber, Date dateIn, Date dateOut, int daysCount) {
-        this.id = id;
-        this.user = user;
-        this.roomNumber = roomNumber;
-        this.dateIn = dateIn;
-        this.dateOut = dateOut;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public Reservation(ReservationBuilder reservationBuilder){
+        this.id = reservationBuilder.getId();
+        this.dateIn = reservationBuilder.getDateIn();
+        this.dateOut = reservationBuilder.getDateOut();
+        this.user = reservationBuilder.getUser();
+        this.costAdditionalServices = reservationBuilder.getCostAdditionalServices();
+        this.discount = reservationBuilder.getDiscount();
     }
 
     public User getUser() {
@@ -34,12 +31,12 @@ public class Reservation extends Entity{
         this.user = user;
     }
 
-    public int getRoomNumber() {
-        return roomNumber;
+    public int getId() {
+        return id;
     }
 
-    public void setRoomNumber(int roomNumber) {
-        this.roomNumber = roomNumber;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Date getDateIn() {
@@ -58,39 +55,19 @@ public class Reservation extends Entity{
         this.dateOut = dateOut;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Reservation that = (Reservation) o;
-
-        if (id != that.id) return false;
-        if (roomNumber != that.roomNumber) return false;
-        if (!user.equals(that.user)) return false;
-        if (!dateIn.equals(that.dateIn)) return false;
-        return dateOut.equals(that.dateOut);
+    public int getCostAdditionalServices() {
+        return costAdditionalServices;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + user.hashCode();
-        result = 31 * result + roomNumber;
-        result = 31 * result + dateIn.hashCode();
-        result = 31 * result + dateOut.hashCode();
-        return result;
+    public void setCostAdditionalServices(int costAdditionalServices) {
+        this.costAdditionalServices = costAdditionalServices;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Reservation{");
-        sb.append("id=").append(id);
-        sb.append(", user=").append(user);
-        sb.append(", roomNumber=").append(roomNumber);
-        sb.append(", dateIn=").append(dateIn);
-        sb.append(", dateOut=").append(dateOut);
-        sb.append('}');
-        return sb.toString();
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
     }
 }
