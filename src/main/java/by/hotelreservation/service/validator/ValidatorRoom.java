@@ -1,8 +1,8 @@
 package by.hotelreservation.service.validator;
 
-import by.hotelreservation.service.exception.IncorrectRoomNameException;
-import by.hotelreservation.service.exception.IncorrectRoomPathException;
-import by.hotelreservation.service.exception.IncorrectRoomPhoneNumberException;
+import by.hotelreservation.exception.validateexception.IncorrectRoomNameException;
+import by.hotelreservation.exception.validateexception.IncorrectRoomPathException;
+import by.hotelreservation.exception.validateexception.IncorrectRoomPhoneNumberException;
 
 import java.util.Map;
 

@@ -1,15 +1,15 @@
 package by.hotelreservation.service.impl;
 
-import by.hotelreservation.bean.ReservationRoom;
+import by.hotelreservation.bean.entity.ReservationRoom;
 import by.hotelreservation.builder.ReservationBuilder;
 import by.hotelreservation.builder.ReservationRoomBuilder;
 import by.hotelreservation.builder.RoomBuilder;
 import by.hotelreservation.dao.ReservationRoomDao;
 import by.hotelreservation.dao.impl.ReservationRoomDaoImpl;
-import by.hotelreservation.dao.exception.DAOException;
+import by.hotelreservation.exception.DAOException;
+import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.service.AbstractService;
 import by.hotelreservation.service.CrudService;
-import by.hotelreservation.service.exception.ServiceException;
 
 import java.sql.Connection;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.Map;
 public class ReservationRoomServiceImpl extends AbstractService implements CrudService<ReservationRoom> {
     ReservationRoomDao reservationRoomDao = new ReservationRoomDaoImpl();
 
-    public List<ReservationRoom> getAllEntities() throws ServiceException {
+    public List<ReservationRoom> getAll() throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -30,7 +30,7 @@ public class ReservationRoomServiceImpl extends AbstractService implements CrudS
         }
     }
 
-    public List<ReservationRoom> addEntity(ReservationRoom entity) throws ServiceException {
+    public List<ReservationRoom> add(ReservationRoom entity) throws ServiceException {
         List<ReservationRoom> reservationRooms;
         Connection connection = null;
         try {
@@ -45,7 +45,7 @@ public class ReservationRoomServiceImpl extends AbstractService implements CrudS
         return reservationRooms;
     }
 
-    public void removeEntity(ReservationRoom reservationRoom) throws ServiceException {
+    public void delete(ReservationRoom reservationRoom) throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -57,7 +57,7 @@ public class ReservationRoomServiceImpl extends AbstractService implements CrudS
         }
     }
 
-    public void updateEntity(ReservationRoom entity) throws ServiceException {
+    public void update(ReservationRoom entity) throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -97,7 +97,7 @@ public class ReservationRoomServiceImpl extends AbstractService implements CrudS
         return reservationRooms;
     }
 
-    public ReservationRoom buildEntity(Map<String, String[]> params) throws ServiceException {
+    public ReservationRoom build(Map<String, String[]> params) throws ServiceException {
         return new ReservationRoomBuilder()
                 .reservation(new ReservationBuilder().id(Integer.parseInt(params.get("idReservation")[0])).build())
                 .room(new RoomBuilder().id(Integer.parseInt(params.get("idRoom")[0])).build())

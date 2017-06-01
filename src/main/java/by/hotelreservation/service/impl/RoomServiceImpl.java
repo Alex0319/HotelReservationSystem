@@ -1,17 +1,17 @@
 package by.hotelreservation.service.impl;
 
-import by.hotelreservation.bean.Room;
+import by.hotelreservation.bean.entity.Room;
 import by.hotelreservation.builder.RoomBuilder;
 import by.hotelreservation.builder.RoomTypeBuilder;
 import by.hotelreservation.dao.RoomDao;
-import by.hotelreservation.dao.exception.DAOException;
 import by.hotelreservation.dao.impl.RoomDaoImpl;
+import by.hotelreservation.exception.DAOException;
+import by.hotelreservation.exception.ServiceException;
+import by.hotelreservation.exception.validateexception.IncorrectRoomNameException;
+import by.hotelreservation.exception.validateexception.IncorrectRoomPathException;
+import by.hotelreservation.exception.validateexception.IncorrectRoomPhoneNumberException;
 import by.hotelreservation.service.AbstractService;
 import by.hotelreservation.service.CrudServiceExtended;
-import by.hotelreservation.service.exception.IncorrectRoomNameException;
-import by.hotelreservation.service.exception.IncorrectRoomPathException;
-import by.hotelreservation.service.exception.IncorrectRoomPhoneNumberException;
-import by.hotelreservation.service.exception.ServiceException;
 import by.hotelreservation.service.validator.ValidatorRoom;
 
 import java.sql.Connection;
@@ -33,7 +33,7 @@ public class RoomServiceImpl extends AbstractService implements CrudServiceExten
         }
     }
 
-    public List<Room> getAllEntities() throws ServiceException {
+    public List<Room> getAll() throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -59,7 +59,7 @@ public class RoomServiceImpl extends AbstractService implements CrudServiceExten
         return room;
     }
 
-    public List<Room> addEntity(Room entity) throws ServiceException {
+    public List<Room> add(Room entity) throws ServiceException {
         List<Room> rooms;
         Connection connection = null;
         try {
@@ -74,7 +74,7 @@ public class RoomServiceImpl extends AbstractService implements CrudServiceExten
         return rooms;
     }
 
-    public void removeEntity(Room room) throws ServiceException {
+    public void delete(Room room) throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -86,7 +86,7 @@ public class RoomServiceImpl extends AbstractService implements CrudServiceExten
         }
     }
 
-    public void updateEntity(Room entity) throws ServiceException {
+    public void update(Room entity) throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -98,7 +98,7 @@ public class RoomServiceImpl extends AbstractService implements CrudServiceExten
         }
     }
 
-    public Room buildEntity(Map<String, String[]> params) throws ServiceException {
+    public Room build(Map<String, String[]> params) throws ServiceException {
         ValidatorRoom validatorRoom = new ValidatorRoom();
         try {
             if (validatorRoom.validate(params)) {

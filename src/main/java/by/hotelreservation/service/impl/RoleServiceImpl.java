@@ -1,13 +1,15 @@
 package by.hotelreservation.service.impl;
 
-import by.hotelreservation.bean.Role;
+import by.hotelreservation.bean.entity.Role;
 import by.hotelreservation.builder.RoleBuilder;
 import by.hotelreservation.dao.RoleDao;
 import by.hotelreservation.dao.impl.RoleDaoImpl;
-import by.hotelreservation.dao.exception.DAOException;
+import by.hotelreservation.exception.DAOException;
+import by.hotelreservation.exception.ServiceException;
+import by.hotelreservation.exception.validateexception.IncorrectNameRoleException;
+import by.hotelreservation.exception.validateexception.IncorrectRightRoleException;
 import by.hotelreservation.service.AbstractService;
 import by.hotelreservation.service.CrudServiceExtended;
-import by.hotelreservation.service.exception.*;
 import by.hotelreservation.service.validator.ValidatorRole;
 
 import java.sql.Connection;
@@ -29,7 +31,7 @@ public class RoleServiceImpl extends AbstractService implements CrudServiceExten
         }
     }
 
-    public List<Role> getAllEntities() throws ServiceException {
+    public List<Role> getAll() throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -41,7 +43,7 @@ public class RoleServiceImpl extends AbstractService implements CrudServiceExten
         }
     }
 
-    public List<Role> addEntity(Role entity) throws ServiceException {
+    public List<Role> add(Role entity) throws ServiceException {
         Connection connection = null;
         List<Role> roles;
         try {
@@ -56,7 +58,7 @@ public class RoleServiceImpl extends AbstractService implements CrudServiceExten
         return roles;
     }
 
-    public void removeEntity(Role entity) throws ServiceException {
+    public void delete(Role entity) throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -68,7 +70,7 @@ public class RoleServiceImpl extends AbstractService implements CrudServiceExten
         }
     }
 
-    public void updateEntity(Role entity) throws ServiceException {
+    public void update(Role entity) throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -80,7 +82,7 @@ public class RoleServiceImpl extends AbstractService implements CrudServiceExten
         }
     }
 
-    public Role buildEntity(Map<String, String[]> params) throws ServiceException {
+    public Role build(Map<String, String[]> params) throws ServiceException {
         ValidatorRole validatorRole = new ValidatorRole();
         try {
             if (validatorRole.validate(params)) {

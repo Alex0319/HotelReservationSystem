@@ -2,7 +2,7 @@ package by.hotelreservation.dao.impl;
 
 import by.hotelreservation.dao.AbstractDao;
 import by.hotelreservation.dao.TablesInfoDao;
-import by.hotelreservation.dao.exception.DAOException;
+import by.hotelreservation.exception.DAOException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

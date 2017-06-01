@@ -41,7 +41,7 @@
                         +375(33)625-66-42
                         <br>
                         <div id="idAdminRef" style="display: none">
-                            <a href="/servlet?page=admin.jsp&action=ADMIN_START">Администратор</a>
+                            <a href="/tables_info">Администратор</a>
                         </div>
                     </div>
 

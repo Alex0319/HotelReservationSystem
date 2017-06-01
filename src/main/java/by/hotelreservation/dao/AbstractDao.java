@@ -1,6 +1,6 @@
 package by.hotelreservation.dao;
 
-import by.hotelreservation.dao.exception.DAOException;
+import by.hotelreservation.exception.DAOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

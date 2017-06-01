@@ -1,6 +1,6 @@
 package by.hotelreservation.service;
 
-import by.hotelreservation.service.exception.ServiceException;
+import by.hotelreservation.exception.ServiceException;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.logging.log4j.LogManager;

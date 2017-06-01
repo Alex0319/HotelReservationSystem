@@ -1,7 +1,7 @@
 package by.hotelreservation.service.validator;
 
-import by.hotelreservation.service.exception.IncorrectNameRoleException;
-import by.hotelreservation.service.exception.IncorrectRightRoleException;
+import by.hotelreservation.exception.validateexception.IncorrectNameRoleException;
+import by.hotelreservation.exception.validateexception.IncorrectRightRoleException;
 
 import java.util.Map;
 

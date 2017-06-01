@@ -4,5 +4,15 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <bean id="roleService" class="by.hotelreservation.service.impl.RoleServiceImpl" />
+    <bean id="userService" class="by.hotelreservation.service.impl.UserServiceImpl" />
+    <bean id="roomService" class="by.hotelreservation.service.impl.RoomServiceImpl" />
+    <bean id="roomTypeService" class="by.hotelreservation.service.impl.RoomTypeServiceImpl" />
+    <bean id="reservationService" class="by.hotelreservation.service.impl.ReservationServiceImpl" />
+    <bean id="discountService" class="by.hotelreservation.service.impl.DiscountServiceImpl" />
+    <bean id="parkingSpaceService" class="by.hotelreservation.service.impl.ParkingSpaceServiceImpl" />
+    <bean id="reservationRoomService" class="by.hotelreservation.service.impl.ReservationRoomServiceImpl" />
+    <bean id="reservationParkingSpaceService" class="by.hotelreservation.service.impl.ReservationParkingSpaceServiceImpl" />
+    <bean id="tablesInfoService" class="by.hotelreservation.service.impl.TablesInfoServiceImpl" />
 
 </beans>

@@ -1,9 +1,12 @@
 package by.hotelreservation.documentbuilder;
 
 import by.hotelreservation.bean.DocumentObject;
-import by.hotelreservation.service.exception.ServiceException;
+import by.hotelreservation.exception.ServiceException;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.*;
+import com.itextpdf.text.pdf.AcroFields;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfStamper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

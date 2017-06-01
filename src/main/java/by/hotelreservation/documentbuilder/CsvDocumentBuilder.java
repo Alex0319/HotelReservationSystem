@@ -1,7 +1,7 @@
 package by.hotelreservation.documentbuilder;
 
 import by.hotelreservation.bean.DocumentObject;
-import by.hotelreservation.service.exception.ServiceException;
+import by.hotelreservation.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.supercsv.cellprocessor.Optional;

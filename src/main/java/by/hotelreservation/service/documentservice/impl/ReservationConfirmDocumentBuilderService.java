@@ -1,11 +1,11 @@
 package by.hotelreservation.service.documentservice.impl;
 
 import by.hotelreservation.bean.DocumentObject;
-import by.hotelreservation.bean.Reservation;
+import by.hotelreservation.bean.entity.Reservation;
 import by.hotelreservation.documentbuilder.DocumentBuilder;
 import by.hotelreservation.documentbuilder.impl.ReservationConfirmDocumentBuilder;
+import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.service.documentservice.DocumentBuilderService;
-import by.hotelreservation.service.exception.ServiceException;
 import by.hotelreservation.service.impl.ReservationServiceImpl;
 
 import java.util.Map;

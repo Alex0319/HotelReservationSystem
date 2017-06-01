@@ -1,7 +1,7 @@
 package by.hotelreservation.service.validator;
 
-import by.hotelreservation.service.exception.IncorrectCostException;
-import by.hotelreservation.service.exception.IncorrectDateException;
+import by.hotelreservation.exception.validateexception.IncorrectCostException;
+import by.hotelreservation.exception.validateexception.IncorrectDateException;
 
 import java.text.DateFormat;
 import java.text.ParseException;

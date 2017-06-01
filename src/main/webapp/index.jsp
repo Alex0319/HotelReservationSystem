@@ -6,7 +6,7 @@
         <link rel="stylesheet" type="text/css" href="styleindex.css" media="all">
     </head>
     <body>
-    <a href="/admin_start">Администратор</a></br>
+    <a href="/tables_info">Администратор</a></br>
     <a href="/create_doc?docname=reservation_voucher&id=4">Электронный ваучер на проживание</a></br>
     <a href="/create_doc?docname=reservation_confirm&id=4">Подтверждение брони</a></br>
     <a href="/create_doc?docname=room_document&id=2">Информация о номере</a></br>
@@ -23,13 +23,5 @@
     <a href="/create_doc?docname=entity_csv_report&entity=user">Отчет по пользователям</a></br>
     <a href="/create_doc?docname=entity_csv_report&entity=role">Отчет по ролям</a></br>
 
-    <!-- "<c:forEach items="${users}" var="user">
-        <tr>
-            <td>${user.id}</td>
-            <td>${user.login}</td>
-            <td>${user.password}</td>
-        </tr>
-        <br>
-    </c:forEach>" -->
     </body>
 </html>

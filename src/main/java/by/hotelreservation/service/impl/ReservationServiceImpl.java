@@ -1,18 +1,18 @@
 package by.hotelreservation.service.impl;
 
-import by.hotelreservation.bean.Reservation;
-import by.hotelreservation.bean.ReservationRoom;
+import by.hotelreservation.bean.entity.Reservation;
+import by.hotelreservation.bean.entity.ReservationRoom;
 import by.hotelreservation.builder.*;
 import by.hotelreservation.dao.ReservationDao;
 import by.hotelreservation.dao.ReservationRoomDao;
-import by.hotelreservation.dao.exception.DAOException;
 import by.hotelreservation.dao.impl.ReservationDaoImpl;
 import by.hotelreservation.dao.impl.ReservationRoomDaoImpl;
+import by.hotelreservation.exception.DAOException;
+import by.hotelreservation.exception.ServiceException;
+import by.hotelreservation.exception.validateexception.IncorrectCostException;
+import by.hotelreservation.exception.validateexception.IncorrectDateException;
 import by.hotelreservation.service.AbstractService;
 import by.hotelreservation.service.CrudServiceExtended;
-import by.hotelreservation.service.exception.IncorrectCostException;
-import by.hotelreservation.service.exception.IncorrectDateException;
-import by.hotelreservation.service.exception.ServiceException;
 import by.hotelreservation.service.validator.ValidatorReservation;
 
 import java.sql.Connection;
@@ -38,7 +38,7 @@ public class ReservationServiceImpl extends AbstractService implements CrudServi
         }
     }
 
-    public List<Reservation> getAllEntities() throws ServiceException {
+    public List<Reservation> getAll() throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -64,7 +64,7 @@ public class ReservationServiceImpl extends AbstractService implements CrudServi
         return reservation;
     }
 
-    public List<Reservation> addEntity(Reservation entity) throws ServiceException {
+    public List<Reservation> add(Reservation entity) throws ServiceException {
         List<Reservation> reservations;
         Connection connection = null;
         try {
@@ -83,7 +83,7 @@ public class ReservationServiceImpl extends AbstractService implements CrudServi
         return reservations;
     }
 
-    public void removeEntity(Reservation reservation) throws ServiceException {
+    public void delete(Reservation reservation) throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -95,7 +95,7 @@ public class ReservationServiceImpl extends AbstractService implements CrudServi
         }
     }
 
-    public void updateEntity(Reservation entity) throws ServiceException {
+    public void update(Reservation entity) throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -107,7 +107,7 @@ public class ReservationServiceImpl extends AbstractService implements CrudServi
         }
     }
 
-    public Reservation buildEntity(Map<String, String[]> params) throws ServiceException {
+    public Reservation build(Map<String, String[]> params) throws ServiceException {
         ValidatorReservation validatorReservation = new ValidatorReservation();
         try {
             if (validatorReservation.validate(params)) {

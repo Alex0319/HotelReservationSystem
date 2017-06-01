@@ -1,7 +1,7 @@
 package by.hotelreservation.service.documentservice;
 
 import by.hotelreservation.bean.DocumentObject;
-import by.hotelreservation.service.exception.ServiceException;
+import by.hotelreservation.exception.ServiceException;
 
 import java.util.Map;
 

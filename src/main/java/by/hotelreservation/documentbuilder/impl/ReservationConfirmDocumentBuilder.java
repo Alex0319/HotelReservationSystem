@@ -1,6 +1,6 @@
 package by.hotelreservation.documentbuilder.impl;
 
-import by.hotelreservation.bean.Reservation;
+import by.hotelreservation.bean.entity.Reservation;
 import by.hotelreservation.documentbuilder.PdfDocumentBuilder;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.AcroFields;

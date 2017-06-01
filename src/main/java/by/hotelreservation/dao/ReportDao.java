@@ -1,7 +1,7 @@
 package by.hotelreservation.dao;
 
 import by.hotelreservation.bean.Report;
-import by.hotelreservation.dao.exception.DAOException;
+import by.hotelreservation.exception.DAOException;
 
 import java.sql.Connection;
 

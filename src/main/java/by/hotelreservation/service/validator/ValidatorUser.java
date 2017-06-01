@@ -1,6 +1,6 @@
 package by.hotelreservation.service.validator;
 
-import by.hotelreservation.service.exception.*;
+import by.hotelreservation.exception.validateexception.*;
 
 import java.util.Map;
 import java.util.regex.Matcher;

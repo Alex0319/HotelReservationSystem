@@ -197,7 +197,7 @@ function validLogin	(login) { //с ограничением 2-20 символо�
 function validEmail(email) {
     return (/^(?:[-a-z\d\+\*\/\?!{}`~_%&'=^$#]+(?:\.[-a-z\d\+\*\/\?!{}`~_%&'=^$#]+)*)@(?:[-a-z\d_]+\.){1,60}[a-z]{2,6}$/).test(email);
 }
-function validPassword(passw) {
-    return (/(?=^.{8,}$)/).test(passw);
+function validPassword(password) {
+    return (/(?=^.{8,}$)/).test(password);
 }
 

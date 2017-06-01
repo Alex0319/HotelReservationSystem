@@ -1,14 +1,14 @@
 package by.hotelreservation.service.impl;
 
-import by.hotelreservation.bean.Discount;
+import by.hotelreservation.bean.entity.Discount;
 import by.hotelreservation.builder.DiscountBuilder;
 import by.hotelreservation.dao.DiscountDao;
 import by.hotelreservation.dao.impl.DiscountDaoImpl;
-import by.hotelreservation.dao.exception.DAOException;
+import by.hotelreservation.exception.DAOException;
+import by.hotelreservation.exception.ServiceException;
+import by.hotelreservation.exception.validateexception.IncorrectDiscountNameException;
 import by.hotelreservation.service.AbstractService;
 import by.hotelreservation.service.CrudServiceExtended;
-import by.hotelreservation.service.exception.IncorrectDiscountNameException;
-import by.hotelreservation.service.exception.ServiceException;
 import by.hotelreservation.service.validator.ValidatorDiscount;
 
 import java.sql.Connection;
@@ -30,7 +30,7 @@ public class DiscountServiceImpl extends AbstractService implements CrudServiceE
         }
     }
 
-    public List<Discount> getAllEntities() throws ServiceException {
+    public List<Discount> getAll() throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -42,7 +42,7 @@ public class DiscountServiceImpl extends AbstractService implements CrudServiceE
         }
     }
 
-    public List<Discount> addEntity(Discount entity) throws ServiceException {
+    public List<Discount> add(Discount entity) throws ServiceException {
         Connection connection = null;
         List<Discount> discounts;
         try {
@@ -57,7 +57,7 @@ public class DiscountServiceImpl extends AbstractService implements CrudServiceE
         return discounts;
     }
 
-    public void removeEntity(Discount discount) throws ServiceException {
+    public void delete(Discount discount) throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -69,7 +69,7 @@ public class DiscountServiceImpl extends AbstractService implements CrudServiceE
         }
     }
 
-    public void updateEntity(Discount entity) throws ServiceException {
+    public void update(Discount entity) throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -81,7 +81,7 @@ public class DiscountServiceImpl extends AbstractService implements CrudServiceE
         }
     }
 
-    public Discount buildEntity(Map<String, String[]> params) throws ServiceException {
+    public Discount build(Map<String, String[]> params) throws ServiceException {
         ValidatorDiscount validatorDiscount = new ValidatorDiscount();
         try {
             if(validatorDiscount.validate(params)) {

@@ -5,7 +5,7 @@ import by.hotelreservation.bean.Report;
 import by.hotelreservation.bean.RoomReport;
 import by.hotelreservation.dao.AbstractDao;
 import by.hotelreservation.dao.ReportDao;
-import by.hotelreservation.dao.exception.DAOException;
+import by.hotelreservation.exception.DAOException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +16,7 @@ import static by.hotelreservation.dao.constants.Constants.*;
 
 public class ReportDaoImpl extends AbstractDao implements ReportDao{
     @Override
-    public Report getFinancialReportInfoByMonth(Report report, Connection connection) throws DAOException{
+    public Report getFinancialReportInfoByMonth(Report report, Connection connection) throws DAOException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {

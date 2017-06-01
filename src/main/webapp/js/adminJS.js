@@ -87,6 +87,7 @@ function updateData(obj) {
     arrayValues.pop();
     arrayValues.pop();
     var i = 0;
+    console.log(arrayValues);
     $(editBody).each(function(){
         $("div",this).each(function(){
             if(this.className=='col-sm-8') {
@@ -103,7 +104,6 @@ function updateData(obj) {
         for(var arrayType in arrayObj){
             var j = 0;
             while(j!=arrayObj[arrayType].length) {
-                console.log(arrayType);
                 var number = (arrayObj[arrayType])[j].substr(0, (arrayObj[arrayType])[j].indexOf(" "));
                 if ($(inputs[i]).val() == number)
                     $('select[name=id' + arrayType[0].toUpperCase() + arrayType.slice(1) + ']').val((arrayObj[arrayType])[j]);
@@ -136,11 +136,11 @@ function getData(editBody) {
                         value = value.substr(0,value.indexOf(' '))
                     }
                 }
-                result = result.concat('&',key,'=', value);
+                result = result.concat(key,'=', value, '&');
             }
         });
     });
-    return result;
+    return result.slice(0,result.length-1);
 }
 
 function getUpdatedData() {
@@ -152,8 +152,9 @@ function sendUpdateData() {
     var editBodyUpdate = $('#myModalUpdate').find('#mainForm');
 
     $.ajax({
-        type: 'POST',
-        url: '/update?tableName='+NameTable + getData(editBodyUpdate),
+        type: 'PUT',
+        url: NameTable,
+        data: getData(editBodyUpdate),
         success: function (result) {
             if(result != null && result.length !=0){
                 alert(result);
@@ -166,7 +167,8 @@ function sendAddData() {
 
     $.ajax({
         type: 'POST',
-        url: '/add?tableName='+NameTable + getData(editBodyAdd),
+        url: NameTable,
+        data: getData(editBodyAdd),
         success: function (result) {
             console.log(result);
             if(typeof result == 'string'){
@@ -206,7 +208,7 @@ var mapStringTable = {
 function deleteRow(obj) {
     $.ajax({
         type: 'DELETE',
-        url: '/remove?tableName=' + NameTable + '&' +  formParams(obj.closest('tr').rowIndex),
+        url: NameTable + '&' +  formParams(obj.closest('tr').rowIndex),
         success:function(result){
             if(result==null || result.length == 0){
                 document.getElementById('tableHotel').deleteRow(obj.closest('tr').rowIndex);
@@ -354,7 +356,7 @@ function loadTemplate() {
 function getAllTableElements(nameTable) {
     $.ajax({
         type: 'GET',
-        url: '/get_all?tableName='+nameTable,
+        url: nameTable,
         success: function(data) {
             futureQueryForID = {};
             loadTemplate();

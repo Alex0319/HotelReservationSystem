@@ -1,6 +1,6 @@
 package by.hotelreservation.service.validator;
 
-import by.hotelreservation.service.exception.IncorrectDiscountNameException;
+import by.hotelreservation.exception.validateexception.IncorrectDiscountNameException;
 
 import java.util.Map;
 

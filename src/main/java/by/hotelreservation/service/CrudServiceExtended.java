@@ -1,6 +1,6 @@
 package by.hotelreservation.service;
 
-import by.hotelreservation.service.exception.ServiceException;
+import by.hotelreservation.exception.ServiceException;
 
 import java.util.List;
 

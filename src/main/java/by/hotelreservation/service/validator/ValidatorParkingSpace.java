@@ -1,7 +1,7 @@
 package by.hotelreservation.service.validator;
 
-import by.hotelreservation.service.exception.IncorrectParkingSpaceLevelException;
-import by.hotelreservation.service.exception.IncorrectParkingSpaceReservationException;
+import by.hotelreservation.exception.validateexception.IncorrectParkingSpaceLevelException;
+import by.hotelreservation.exception.validateexception.IncorrectParkingSpaceReservationException;
 
 import java.util.Map;
 

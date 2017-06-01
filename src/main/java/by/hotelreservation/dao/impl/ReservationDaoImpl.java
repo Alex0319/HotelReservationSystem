@@ -1,13 +1,13 @@
 package by.hotelreservation.dao.impl;
 
-import by.hotelreservation.bean.Reservation;
+import by.hotelreservation.bean.entity.Reservation;
 import by.hotelreservation.builder.DiscountBuilder;
 import by.hotelreservation.builder.ReservationBuilder;
 import by.hotelreservation.builder.UserBuilder;
 import by.hotelreservation.dao.AbstractDao;
 import by.hotelreservation.dao.ReservationDao;
 import by.hotelreservation.dao.constants.Constants;
-import by.hotelreservation.dao.exception.DAOException;
+import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.util.ErrorStringBuilder;
 
 import java.sql.*;

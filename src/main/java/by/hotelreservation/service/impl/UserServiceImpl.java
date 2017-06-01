@@ -1,21 +1,24 @@
 package by.hotelreservation.service.impl;
 
-import by.hotelreservation.bean.User;
+import by.hotelreservation.bean.entity.User;
 import by.hotelreservation.builder.RoleBuilder;
 import by.hotelreservation.builder.UserBuilder;
 import by.hotelreservation.dao.UserDao;
-import by.hotelreservation.dao.exception.DAOException;
 import by.hotelreservation.dao.impl.UserDaoImpl;
+import by.hotelreservation.exception.DAOException;
+import by.hotelreservation.exception.ServiceException;
+import by.hotelreservation.exception.validateexception.*;
 import by.hotelreservation.security.MD5;
 import by.hotelreservation.service.AbstractService;
 import by.hotelreservation.service.CrudServiceExtended;
-import by.hotelreservation.service.exception.*;
 import by.hotelreservation.service.validator.ValidatorUser;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class UserServiceImpl extends AbstractService implements CrudServiceExtended<User> {
     private UserDao userDao = new UserDaoImpl();
 
@@ -31,7 +34,7 @@ public class UserServiceImpl extends AbstractService implements CrudServiceExten
         }
     }
 
-    public List<User> getAllEntities() throws ServiceException {
+    public List<User> getAll() throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -57,7 +60,7 @@ public class UserServiceImpl extends AbstractService implements CrudServiceExten
         return user;
     }
 
-    public List<User> addEntity(User entity) throws ServiceException {
+    public List<User> add(User entity) throws ServiceException {
         Connection connection = null;
         List<User> users;
         try {
@@ -72,7 +75,7 @@ public class UserServiceImpl extends AbstractService implements CrudServiceExten
         return users;
     }
 
-    public void removeEntity(User user) throws ServiceException {
+    public void delete(User user) throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -84,7 +87,7 @@ public class UserServiceImpl extends AbstractService implements CrudServiceExten
         }
     }
 
-    public void updateEntity(User entity) throws ServiceException {
+    public void update(User entity) throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -96,7 +99,7 @@ public class UserServiceImpl extends AbstractService implements CrudServiceExten
         }
     }
 
-    public User buildEntity(Map<String, String[]> params) throws ServiceException {
+    public User build(Map<String, String[]> params) throws ServiceException {
         ValidatorUser validatorUser = new ValidatorUser();
         try {
             if (validatorUser.validate(params)) {

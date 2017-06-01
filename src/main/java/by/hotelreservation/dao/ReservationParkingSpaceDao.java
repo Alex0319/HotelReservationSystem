@@ -1,7 +1,7 @@
 package by.hotelreservation.dao;
 
-import by.hotelreservation.bean.ReservationParkingSpace;
-import by.hotelreservation.dao.exception.DAOException;
+import by.hotelreservation.bean.entity.ReservationParkingSpace;
+import by.hotelreservation.exception.DAOException;
 
 import java.sql.Connection;
 import java.util.List;

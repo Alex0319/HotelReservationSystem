@@ -7,8 +7,8 @@ import by.hotelreservation.builder.ReportBuilder;
 import by.hotelreservation.documentbuilder.DocumentBuilder;
 import by.hotelreservation.documentbuilder.impl.FinancialReportByMonthBuilder;
 import by.hotelreservation.documentbuilder.impl.FinancialReportByQuarterBuilder;
+import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.service.documentservice.DocumentBuilderService;
-import by.hotelreservation.service.exception.ServiceException;
 import by.hotelreservation.service.impl.ReportServiceImpl;
 
 import java.util.Map;
@@ -17,7 +17,7 @@ public class FinancialReportBuilderService implements DocumentBuilderService{
     private enum ReportType{
         BY_MONTH{
             @Override
-            DocumentObject build(Report report) throws ServiceException{
+            DocumentObject build(Report report) throws ServiceException {
                 DocumentBuilder documentBuilder = FinancialReportByMonthBuilder.getInstance();
                 report = new ReportServiceImpl().getFinancialReportInfoByMonth(report);
                 return documentBuilder.buildDocument(report);

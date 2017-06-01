@@ -1,16 +1,16 @@
 package by.hotelreservation.service.impl;
 
 
-import by.hotelreservation.bean.ParkingSpace;
+import by.hotelreservation.bean.entity.ParkingSpace;
 import by.hotelreservation.builder.ParkingSpaceBuilder;
 import by.hotelreservation.dao.ParkingSpaceDao;
 import by.hotelreservation.dao.impl.ParkingSpaceDaoImpl;
-import by.hotelreservation.dao.exception.DAOException;
+import by.hotelreservation.exception.DAOException;
+import by.hotelreservation.exception.ServiceException;
+import by.hotelreservation.exception.validateexception.IncorrectParkingSpaceLevelException;
+import by.hotelreservation.exception.validateexception.IncorrectParkingSpaceReservationException;
 import by.hotelreservation.service.AbstractService;
 import by.hotelreservation.service.CrudServiceExtended;
-import by.hotelreservation.service.exception.IncorrectParkingSpaceLevelException;
-import by.hotelreservation.service.exception.IncorrectParkingSpaceReservationException;
-import by.hotelreservation.service.exception.ServiceException;
 import by.hotelreservation.service.validator.ValidatorParkingSpace;
 
 import java.sql.Connection;
@@ -32,7 +32,7 @@ public class ParkingSpaceServiceImpl extends AbstractService implements CrudServ
         }
     }
 
-    public List<ParkingSpace> getAllEntities() throws ServiceException {
+    public List<ParkingSpace> getAll() throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -44,7 +44,7 @@ public class ParkingSpaceServiceImpl extends AbstractService implements CrudServ
         }
     }
 
-    public List<ParkingSpace> addEntity(ParkingSpace entity) throws ServiceException {
+    public List<ParkingSpace> add(ParkingSpace entity) throws ServiceException {
         List<ParkingSpace> parkingSpaces;
         Connection connection = null;
         try {
@@ -59,7 +59,7 @@ public class ParkingSpaceServiceImpl extends AbstractService implements CrudServ
         return parkingSpaces;
     }
 
-    public void removeEntity(ParkingSpace parkingSpace) throws ServiceException {
+    public void delete(ParkingSpace parkingSpace) throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -71,7 +71,7 @@ public class ParkingSpaceServiceImpl extends AbstractService implements CrudServ
         }
     }
 
-    public void updateEntity(ParkingSpace entity) throws ServiceException {
+    public void update(ParkingSpace entity) throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -83,7 +83,7 @@ public class ParkingSpaceServiceImpl extends AbstractService implements CrudServ
         }
     }
 
-    public ParkingSpace buildEntity(Map<String, String[]> params) throws ServiceException {
+    public ParkingSpace build(Map<String, String[]> params) throws ServiceException {
         ValidatorParkingSpace validatorParkingSpace = new ValidatorParkingSpace();
         try {
             if (validatorParkingSpace.validate(params)) {

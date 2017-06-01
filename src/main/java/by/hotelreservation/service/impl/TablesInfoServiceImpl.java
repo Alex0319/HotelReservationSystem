@@ -2,10 +2,10 @@ package by.hotelreservation.service.impl;
 
 import by.hotelreservation.dao.TablesInfoDao;
 import by.hotelreservation.dao.impl.TablesInfoDaoImpl;
-import by.hotelreservation.dao.exception.DAOException;
+import by.hotelreservation.exception.DAOException;
+import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.service.AbstractService;
 import by.hotelreservation.service.TablesInfoService;
-import by.hotelreservation.service.exception.ServiceException;
 
 import java.sql.Connection;
 import java.util.List;

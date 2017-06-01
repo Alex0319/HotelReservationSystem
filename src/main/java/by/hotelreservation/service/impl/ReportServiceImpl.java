@@ -2,17 +2,17 @@ package by.hotelreservation.service.impl;
 
 import by.hotelreservation.bean.Report;
 import by.hotelreservation.dao.ReportDao;
-import by.hotelreservation.dao.exception.DAOException;
 import by.hotelreservation.dao.impl.ReportDaoImpl;
+import by.hotelreservation.exception.DAOException;
+import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.service.AbstractService;
-import by.hotelreservation.service.exception.ServiceException;
 
 import java.sql.Connection;
 
 public class ReportServiceImpl extends AbstractService{
 	private ReportDao reportDao = new ReportDaoImpl();
 
-	public Report getFinancialReportInfoByMonth(Report report) throws ServiceException{
+	public Report getFinancialReportInfoByMonth(Report report) throws ServiceException {
         Connection connection = null;
         try {
             connection = getConnection();

@@ -1,9 +1,9 @@
 package by.hotelreservation.documentbuilder.impl;
 
-import by.hotelreservation.bean.Reservation;
-import by.hotelreservation.bean.ReservationRoom;
+import by.hotelreservation.bean.entity.Reservation;
+import by.hotelreservation.bean.entity.ReservationRoom;
 import by.hotelreservation.documentbuilder.ExcelDocumentBuilder;
-import by.hotelreservation.service.exception.ServiceException;
+import by.hotelreservation.exception.ServiceException;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -28,7 +28,7 @@ public class ReservationRoomReportBuilder extends ExcelDocumentBuilder<List<Rese
     }
 
     @Override
-    protected void fillDoc(HSSFWorkbook workbook,List<ReservationRoom> documentData) throws ServiceException{
+    protected void fillDoc(HSSFWorkbook workbook,List<ReservationRoom> documentData) throws ServiceException {
         HSSFSheet sheet = workbook.createSheet("Report");
         int columnsCount = addHeader(sheet, documentData.get(0));
         for (ReservationRoom reservationRoom : documentData) {

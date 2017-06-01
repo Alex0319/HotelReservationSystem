@@ -1,10 +1,10 @@
 package by.hotelreservation.dao.impl;
 
-import by.hotelreservation.bean.RoomType;
+import by.hotelreservation.bean.entity.RoomType;
 import by.hotelreservation.builder.RoomTypeBuilder;
 import by.hotelreservation.dao.AbstractDao;
 import by.hotelreservation.dao.RoomTypeDao;
-import by.hotelreservation.dao.exception.DAOException;
+import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.util.ErrorStringBuilder;
 
 import java.sql.*;
