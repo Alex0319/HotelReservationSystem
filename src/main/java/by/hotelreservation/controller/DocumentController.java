@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Controller
 public class DocumentController {
-    private static final Logger logger = LogManager.getLogger(DocumentController.class.getName());
+    private static final Logger logger = LogManager.getLogger(DocumentController.class);
 
     @RequestMapping(value = "/create_doc", method = RequestMethod.GET)
     public Object execute(HttpServletRequest req, HttpServletResponse response){

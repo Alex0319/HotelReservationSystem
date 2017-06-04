@@ -1,4 +1,4 @@
-package by.hotelreservation.bean;
+package by.hotelreservation.bean.entity;
 
 import by.hotelreservation.builder.ReservationRoomBuilder;
 import org.springframework.stereotype.Component;

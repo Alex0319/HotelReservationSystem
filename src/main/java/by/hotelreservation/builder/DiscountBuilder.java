@@ -1,6 +1,6 @@
 package by.hotelreservation.builder;
 
-import by.hotelreservation.bean.Discount;
+import by.hotelreservation.bean.entity.Discount;
 
 public class DiscountBuilder {
     private int id;

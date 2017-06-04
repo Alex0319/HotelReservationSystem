@@ -7,22 +7,25 @@ import by.hotelreservation.dao.AbstractDao;
 import by.hotelreservation.dao.RoomDao;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.util.ErrorStringBuilder;
+import org.springframework.stereotype.Repository;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static by.hotelreservation.dao.constants.Constants.*;
-
+@Repository
 public class RoomDaoImpl extends AbstractDao implements RoomDao {
-    public List<String> getRoomHeaders(Connection connection) throws DAOException {
+    public List<String> getRoomHeaders() throws DAOException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         List<String> headers = new ArrayList<String>();
         StringBuilder stringBuilder = new StringBuilder();
-        try {
+/*        try {
             statement = connection.prepareStatement(GET_ALL_ROOMS_HEADERS);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -35,36 +38,25 @@ public class RoomDaoImpl extends AbstractDao implements RoomDao {
             throw new DAOException(e);
         } finally {
             closeStatement(statement, resultSet);
-        }
+        }*/
         return headers;
     }
 
-    public List<Room> getRooms(Connection connection) throws DAOException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        List<Room> rooms = new ArrayList<>();
-        RoomBuilder roomBuilder = new RoomBuilder();
-        try {
-            statement = connection.prepareStatement(GET_ALL_ROOMS);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                rooms.add(fillRoom(resultSet,roomBuilder));
-            }
-        } catch (SQLException e) {
-            throw new DAOException(e);
-        } finally {
-            closeStatement(statement, resultSet);
-        }
-        return rooms;
+    public List<Room> getRooms() throws DAOException {
+/*        EntityManager entityManager = Persistence.createEntityManagerFactory("")
+        entityManager.getTransaction().begin();
+        TypedQuery<Room> namedQuery = entityManager.createNamedQuery("Room.getAll", Room.class);
+        return namedQuery.getResultList();*/
+return null;
     }
 
-    public Room getRoom(Connection connection, int idRoom) throws DAOException{
+    public Room getRoom(int idRoom) throws DAOException{
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         RoomBuilder roomBuilder = new RoomBuilder();
         Room room = null;
         try {
-            statement = connection.prepareStatement(GET_ROOM);
+ //           statement = connection.prepareStatement(GET_ROOM);
             statement.setInt(1, idRoom);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -78,10 +70,10 @@ public class RoomDaoImpl extends AbstractDao implements RoomDao {
         return room;
     }
 
-    public void addRoom(Room room,Connection connection) throws DAOException {
+    public void addRoom(Room room) throws DAOException {
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement(ADD_ROOM);
+ //           statement = connection.prepareStatement(ADD_ROOM);
             statement = fillStatement(statement, room);
             statement.execute();
         } catch (SQLException | NullPointerException e) {
@@ -91,10 +83,10 @@ public class RoomDaoImpl extends AbstractDao implements RoomDao {
         }
     }
 
-    public void removeRoom(Room room,Connection connection) throws DAOException {
+    public void removeRoom(Room room) throws DAOException {
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement(REMOVE_ROOM);
+//            statement = connection.prepareStatement(REMOVE_ROOM);
             statement.setInt(1, room.getId());
             statement.execute();
         }catch (SQLIntegrityConstraintViolationException e){
@@ -106,10 +98,10 @@ public class RoomDaoImpl extends AbstractDao implements RoomDao {
         }
     }
 
-    public void updateRoom(Room room,Connection connection) throws DAOException {
+    public void updateRoom(Room room) throws DAOException {
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement(UPDATE_ROOM);
+//            statement = connection.prepareStatement(UPDATE_ROOM);
             statement = fillStatement(statement, room);
             statement.setInt(6, room.getId());
             statement.execute();
@@ -121,14 +113,14 @@ public class RoomDaoImpl extends AbstractDao implements RoomDao {
     }
 
     @Override
-    public Room getLastInsertedRoom(Connection connection) throws DAOException {
+    public Room getLastInsertedRoom() throws DAOException {
         PreparedStatement statement = null;
         Room room = null;
         ResultSet resultSet;
         RoomBuilder roomBuilder = new RoomBuilder();
         RoomTypeBuilder roomTypeBuilder  = new RoomTypeBuilder();
         try {
-            statement = connection.prepareStatement(GET_LAST_INSERTED_ROOM);
+ //           statement = connection.prepareStatement(GET_LAST_INSERTED_ROOM);
             // statement.setString(1,room");
             resultSet = statement.executeQuery();
             if (resultSet.next()) {

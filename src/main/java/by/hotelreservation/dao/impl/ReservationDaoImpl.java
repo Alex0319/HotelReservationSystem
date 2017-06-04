@@ -9,6 +9,7 @@ import by.hotelreservation.dao.ReservationDao;
 import by.hotelreservation.dao.constants.Constants;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.util.ErrorStringBuilder;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.text.ParseException;
@@ -20,6 +21,7 @@ import java.util.Map;
 
 import static by.hotelreservation.dao.constants.Constants.*;
 
+@Repository
 public class ReservationDaoImpl extends AbstractDao implements ReservationDao {
     public List<String> getReservationHeaders(Connection connection) throws DAOException {
         PreparedStatement statement = null;

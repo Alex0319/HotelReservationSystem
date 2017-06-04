@@ -1,15 +1,23 @@
-package by.hotelreservation.bean;
+package by.hotelreservation.bean.entity;
 
 import by.hotelreservation.builder.ReservationBuilder;
-import org.springframework.stereotype.Component;
 
-@Component
-public class Reservation {
-    private int id;
+import javax.persistence.*;
+
+@javax.persistence.Entity
+@Table(name = "reservation")
+@NamedQuery(name = "Reservation.getAll", query = "SELECT c FROM Reservation c")
+public class Reservation extends Entity{
     private String dateIn;
     private String dateOut;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn(name = "idUser")
     private User user;
     private int costAdditionalServices;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn(name = "idDiscount")
     private Discount discount;
 
     public Reservation(){super();}
@@ -29,14 +37,6 @@ public class Reservation {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getDateIn() {

@@ -15,7 +15,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/tables_info")
 public class TablesController {
-    private static final Logger logger = LogManager.getLogger(TablesInfoService.class.getName());
+    private static final Logger logger = LogManager.getLogger(TablesInfoService.class);
 
     @Autowired
     private TablesInfoService tablesInfoService;

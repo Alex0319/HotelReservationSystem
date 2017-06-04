@@ -257,7 +257,7 @@ function formGetAllHeadersRequest() {
     for(var value in futureQueryForID) {
         result = result.concat('tableName=', mapStringTable[value], '&')
     }
-    return result;
+    return result.slice(0,result.length-1);
 }
 
 function generateSelectChilds() {
@@ -270,6 +270,7 @@ function generateSelectChilds() {
                 for (var value in futureQueryForID) {
                     arrayObj[value] = data[mapStringTable[value]];
                 }
+                console.log(arrayObj);
                 generateChilds(arrayObj);
             }
         });
@@ -383,4 +384,3 @@ $(document).ready(function() {
         getAllTableElements(nameTable);
     });
 });
-

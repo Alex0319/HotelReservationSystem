@@ -6,6 +6,7 @@ import by.hotelreservation.dao.AbstractDao;
 import by.hotelreservation.dao.DiscountDao;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.util.ErrorStringBuilder;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 import static by.hotelreservation.dao.constants.Constants.*;
 
+@Repository
 public class DiscountDaoImpl extends AbstractDao implements DiscountDao {
     public List<String> getDiscountHeaders(Connection connection) throws DAOException {
         PreparedStatement statement = null;

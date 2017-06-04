@@ -13,7 +13,7 @@ import java.util.Map;
 public class UserDocumentBuilderService implements DocumentBuilderService{
     @Override
     public DocumentObject buildDocument(Map<String, String[]> documentInfo) throws ServiceException {
-        User user = new UserServiceImpl().getEntity(Integer.parseInt(documentInfo.get("id")[0]));
+        User user = new UserServiceImpl().getById(Integer.parseInt(documentInfo.get("id")[0]));
         if(user != null) {
             DocumentBuilder userDocumentBuilder = UserDocumentBuilder.getInstance();
             return userDocumentBuilder.buildDocument(user);

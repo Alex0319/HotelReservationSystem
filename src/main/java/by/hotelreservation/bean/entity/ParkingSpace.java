@@ -1,11 +1,14 @@
-package by.hotelreservation.bean;
+package by.hotelreservation.bean.entity;
 
 import by.hotelreservation.builder.ParkingSpaceBuilder;
-import org.springframework.stereotype.Component;
 
-@Component
-public class ParkingSpace {
-    private int id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+@javax.persistence.Entity
+@Table(name = "parking_space")
+@NamedQuery(name = "ParkingSpace.getAll", query = "SELECT c FROM ParkingSpace c")
+public class ParkingSpace extends Entity{
     private int level;
     private byte reserved;
 
@@ -15,14 +18,6 @@ public class ParkingSpace {
         this.id = parkingSpaceBuilder.getId();
         this.level = parkingSpaceBuilder.getLevel();
         this.reserved = parkingSpaceBuilder.getReserved();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getLevel() {

@@ -5,18 +5,21 @@ import by.hotelreservation.builder.ReservationBuilder;
 import by.hotelreservation.builder.ReservationRoomBuilder;
 import by.hotelreservation.builder.RoomBuilder;
 import by.hotelreservation.dao.ReservationRoomDao;
-import by.hotelreservation.dao.impl.ReservationRoomDaoImpl;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.service.AbstractService;
 import by.hotelreservation.service.CrudService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class ReservationRoomServiceImpl extends AbstractService implements CrudService<ReservationRoom> {
-    ReservationRoomDao reservationRoomDao = new ReservationRoomDaoImpl();
+    @Autowired
+    private ReservationRoomDao reservationRoomDao;
 
     public List<ReservationRoom> getAll() throws ServiceException {
         Connection connection = null;
@@ -28,6 +31,11 @@ public class ReservationRoomServiceImpl extends AbstractService implements CrudS
         }finally {
             closeConnection(connection);
         }
+    }
+
+    @Override
+    public ReservationRoom getById(int id) throws ServiceException {
+        return null;
     }
 
     public List<ReservationRoom> add(ReservationRoom entity) throws ServiceException {

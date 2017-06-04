@@ -10,13 +10,17 @@ import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.service.AbstractService;
 import by.hotelreservation.service.CrudService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class ReservationParkingSpaceServiceImpl extends AbstractService implements CrudService<ReservationParkingSpace> {
-    ReservationParkingSpaceDao reservationParkingSpaceDao = new ReservationParkingSpaceDaoImpl();
+    @Autowired
+    private ReservationParkingSpaceDao reservationParkingSpaceDao;
 
     public List<ReservationParkingSpace> getAll() throws ServiceException {
         Connection connection = null;
@@ -28,6 +32,11 @@ public class ReservationParkingSpaceServiceImpl extends AbstractService implemen
         }finally {
             closeConnection(connection);
         }
+    }
+
+    @Override
+    public ReservationParkingSpace getById(int id) throws ServiceException {
+        return null;
     }
 
     public List<ReservationParkingSpace> add(ReservationParkingSpace entity) throws ServiceException {

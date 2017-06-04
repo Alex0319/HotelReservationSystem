@@ -1,6 +1,6 @@
 package by.hotelreservation.builder;
 
-import by.hotelreservation.bean.Role;
+import by.hotelreservation.bean.entity.Role;
 
 public class RoleBuilder {
     private int id;

@@ -3,20 +3,23 @@ package by.hotelreservation.service.impl;
 import by.hotelreservation.bean.entity.Discount;
 import by.hotelreservation.builder.DiscountBuilder;
 import by.hotelreservation.dao.DiscountDao;
-import by.hotelreservation.dao.impl.DiscountDaoImpl;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.IncorrectDiscountNameException;
 import by.hotelreservation.service.AbstractService;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorDiscount;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class DiscountServiceImpl extends AbstractService implements CrudServiceExtended<Discount> {
-    private DiscountDao discountDao = new DiscountDaoImpl();
+    @Autowired
+    private DiscountDao discountDao;
 
     public List<String> getAllHeaders() throws ServiceException {
         Connection connection = null;
@@ -40,6 +43,11 @@ public class DiscountServiceImpl extends AbstractService implements CrudServiceE
         }finally {
             closeConnection(connection);
         }
+    }
+
+    @Override
+    public Discount getById(int id) throws ServiceException {
+        return null;
     }
 
     public List<Discount> add(Discount entity) throws ServiceException {

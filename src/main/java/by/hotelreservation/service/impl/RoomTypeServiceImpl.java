@@ -3,20 +3,23 @@ package by.hotelreservation.service.impl;
 import by.hotelreservation.bean.entity.RoomType;
 import by.hotelreservation.builder.RoomTypeBuilder;
 import by.hotelreservation.dao.RoomTypeDao;
-import by.hotelreservation.dao.impl.RoomTypeDaoImpl;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.*;
 import by.hotelreservation.service.AbstractService;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorRoomType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class RoomTypeServiceImpl extends AbstractService implements CrudServiceExtended<RoomType> {
-    private RoomTypeDao roomTypeDao = new RoomTypeDaoImpl();
+    @Autowired
+    private RoomTypeDao roomTypeDao;
 
     public List<String> getAllHeaders() throws ServiceException {
         Connection connection = null;
@@ -40,6 +43,11 @@ public class RoomTypeServiceImpl extends AbstractService implements CrudServiceE
         } finally {
             closeConnection(connection);
         }
+    }
+
+    @Override
+    public RoomType getById(int id) throws ServiceException {
+        return null;
     }
 
     public RoomType getEntity(int id) throws ServiceException {

@@ -1,21 +1,41 @@
-package by.hotelreservation.bean;
+package by.hotelreservation.bean.entity;
 
 import by.hotelreservation.builder.RoleBuilder;
-import org.springframework.stereotype.Component;
 
-@Component
-public class Role {
-    private int id;
+import javax.persistence.Column;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+@javax.persistence.Entity
+@Table(name = "role")
+@NamedQuery(name = "Role.getAll", query = "SELECT c FROM Role c")
+public class Role extends Entity{
+    @Column(name = "nameRole")
     private String nameRole;
+
+    @Column(name = "update")
     private byte update;
+
+    @Column(name = "delete")
     private byte delete;
+
+    @Column(name = "insert")
     private byte insert;
+
+    @Column(name = "create")
     private byte create;
+
+    @Column(name = "select")
     private byte select;
+
+    @Column(name = "drop")
     private byte drop;
+
+    @Column(name = "grant")
     private byte grant;
 
     public Role() {
+        super();
     }
 
     public Role(RoleBuilder roleBuilder){
@@ -28,14 +48,6 @@ public class Role {
         this.select = roleBuilder.getSelect();
         this.drop = roleBuilder.getDrop();
         this.grant = roleBuilder.getGrant();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNameRole() {

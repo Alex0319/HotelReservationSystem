@@ -1,11 +1,13 @@
-package by.hotelreservation.bean;
+package by.hotelreservation.bean.entity;
 
 import by.hotelreservation.builder.UserBuilder;
-import org.springframework.stereotype.Component;
 
-@Component
-public class User {
-    private int id;
+import javax.persistence.*;
+
+@javax.persistence.Entity
+@Table(name = "user")
+@NamedQuery(name = "User.getAll", query = "SELECT c FROM User c")
+public class User extends Entity{
     private String name;
     private String surname;
     private String email;
@@ -13,6 +15,9 @@ public class User {
     private String login;
     private String passportNumber;
     private String password;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn(name = "idRole")
     private Role role;
 
     public User(){super();}
@@ -28,14 +33,6 @@ public class User {
         this.password = userBuilder.getPassword();
         this.role = userBuilder.getRole();
         this.email = userBuilder.getEmail();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getPassportNumber() {
@@ -78,9 +75,6 @@ public class User {
         this.mobilePhone = mobilePhone;
     }
 
-    /*
-
-     */
     public String getPassword() {
         return password;
     }
@@ -115,18 +109,36 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         User user = (User) o;
 
-        if (!name.equals(user.name)) return false;
-        if (!surname.equals(user.surname)) return false;
-        if (!mobilePhone.equals(user.mobilePhone)) return false;
-        if (!login.equals(user.login)) return false;
-        if (!email.equals(user.email)) return false;
-        if (!passportNumber.equals(user.passportNumber)) return false;
-        if (!password.equals(user.password)) return false;
+        if (!name.equals(user.name)) {
+            return false;
+        }
+        if (!surname.equals(user.surname)) {
+            return false;
+        }
+        if (!mobilePhone.equals(user.mobilePhone)) {
+            return false;
+        }
+        if (!login.equals(user.login)) {
+            return false;
+        }
+        if (!email.equals(user.email)) {
+            return false;
+        }
+        if (!passportNumber.equals(user.passportNumber)) {
+            return false;
+        }
+        if (!password.equals(user.password)) {
+            return false;
+        }
         return role.equals(user.role);
     }
 

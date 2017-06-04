@@ -8,6 +8,7 @@ import by.hotelreservation.dao.AbstractDao;
 import by.hotelreservation.dao.ReservationRoomDao;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.util.ErrorStringBuilder;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.Map;
 
 import static by.hotelreservation.dao.constants.Constants.*;
 
+@Repository
 public class ReservationRoomDaoImpl extends AbstractDao implements ReservationRoomDao {
     public List<ReservationRoom> getReservationRooms(Connection connection) throws DAOException {
         PreparedStatement statement = null;

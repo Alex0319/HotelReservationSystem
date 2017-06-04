@@ -4,7 +4,6 @@ import by.hotelreservation.bean.entity.User;
 import by.hotelreservation.builder.RoleBuilder;
 import by.hotelreservation.builder.UserBuilder;
 import by.hotelreservation.dao.UserDao;
-import by.hotelreservation.dao.impl.UserDaoImpl;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.*;
@@ -12,15 +11,17 @@ import by.hotelreservation.security.MD5;
 import by.hotelreservation.service.AbstractService;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service(value = "userService")
 public class UserServiceImpl extends AbstractService implements CrudServiceExtended<User> {
-    private UserDao userDao = new UserDaoImpl();
+    @Autowired
+    private UserDao userDao;
 
     public List<String> getAllHeaders() throws ServiceException {
         Connection connection = null;
@@ -46,7 +47,7 @@ public class UserServiceImpl extends AbstractService implements CrudServiceExten
         }
     }
 
-    public User getEntity(int id) throws ServiceException {
+    public User getById(int id) throws ServiceException {
         Connection connection = null;
         User user;
         try {

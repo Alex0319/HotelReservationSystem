@@ -2,7 +2,7 @@ package by.hotelreservation.controller;
 
 import by.hotelreservation.bean.entity.Discount;
 import by.hotelreservation.exception.ServiceException;
-import by.hotelreservation.service.impl.DiscountServiceImpl;
+import by.hotelreservation.service.CrudService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,10 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/discount")
 public class DiscountController {
-    private static final Logger logger = LogManager.getLogger(DiscountController.class.getName());
+    private static final Logger logger = LogManager.getLogger(DiscountController.class);
 
     @Autowired
-    private DiscountServiceImpl discountService;
+    private CrudService<Discount> discountService;
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public List<Discount> getAll(){
@@ -36,12 +36,12 @@ public class DiscountController {
     @RequestMapping(value = "/{id}" , method = RequestMethod.GET, produces = "application/json")
     public Discount getById(@PathVariable int id){
         Discount discount = null;
-/*        try {
-            parkingSpace = parkingSpaceService.getEntity(id);
+        try {
+            discount = discountService.getById(id);
         }catch (ServiceException e){
             logger.error(e);
         }
- */       return discount;
+        return discount;
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json; charset=UTF-8")

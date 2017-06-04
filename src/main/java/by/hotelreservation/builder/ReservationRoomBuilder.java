@@ -1,8 +1,8 @@
 package by.hotelreservation.builder;
 
-import by.hotelreservation.bean.Reservation;
-import by.hotelreservation.bean.ReservationRoom;
-import by.hotelreservation.bean.Room;
+import by.hotelreservation.bean.entity.Reservation;
+import by.hotelreservation.bean.entity.ReservationRoom;
+import by.hotelreservation.bean.entity.Room;
 
 public class ReservationRoomBuilder {
     private Room room;

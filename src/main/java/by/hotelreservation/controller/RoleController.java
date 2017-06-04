@@ -2,7 +2,7 @@ package by.hotelreservation.controller;
 
 import by.hotelreservation.bean.entity.Role;
 import by.hotelreservation.exception.ServiceException;
-import by.hotelreservation.service.impl.RoleServiceImpl;
+import by.hotelreservation.service.CrudService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,10 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/role")
 public class RoleController {
-    private static final Logger logger = LogManager.getLogger(RoleController.class.getName());
+    private static final Logger logger = LogManager.getLogger(RoleController.class);
 
     @Autowired
-    private RoleServiceImpl roleService;
+    private CrudService<Role> roleService;
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public List<Role> getAll(){

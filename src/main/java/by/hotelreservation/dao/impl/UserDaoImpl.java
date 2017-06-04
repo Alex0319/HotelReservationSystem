@@ -8,6 +8,7 @@ import by.hotelreservation.dao.AuthDao;
 import by.hotelreservation.dao.UserDao;
 import by.hotelreservation.dao.constants.Constants;
 import by.hotelreservation.exception.DAOException;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import static by.hotelreservation.dao.constants.Constants.*;
 
+@Repository
 public class UserDaoImpl extends AbstractDao implements UserDao,AuthDao {
     public List<String> getUserHeaders(Connection connection) throws DAOException {
         PreparedStatement statement = null;

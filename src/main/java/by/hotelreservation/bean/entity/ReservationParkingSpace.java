@@ -1,14 +1,12 @@
-package by.hotelreservation.bean;
+package by.hotelreservation.bean.entity;
 
 import by.hotelreservation.builder.ReservationParkingSpaceBuilder;
-import org.springframework.stereotype.Component;
 
-@Component
 public class ReservationParkingSpace {
     private Reservation reservation;
     private ParkingSpace parkingSpace;
 
-    public ReservationParkingSpace(){super();}
+    public ReservationParkingSpace(){}
 
     public ReservationParkingSpace(ReservationParkingSpaceBuilder reservationParkingSpaceBuilder){
         this.reservation = reservationParkingSpaceBuilder.getReservation();

@@ -3,7 +3,6 @@ package by.hotelreservation.service.impl;
 import by.hotelreservation.bean.entity.Role;
 import by.hotelreservation.builder.RoleBuilder;
 import by.hotelreservation.dao.RoleDao;
-import by.hotelreservation.dao.impl.RoleDaoImpl;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.IncorrectNameRoleException;
@@ -11,13 +10,17 @@ import by.hotelreservation.exception.validateexception.IncorrectRightRoleExcepti
 import by.hotelreservation.service.AbstractService;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorRole;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class RoleServiceImpl extends AbstractService implements CrudServiceExtended<Role> {
-    private RoleDao roleDao = new RoleDaoImpl();
+    @Autowired
+    private RoleDao roleDao;
 
     public List<String> getAllHeaders() throws ServiceException {
         Connection connection = null;
@@ -80,6 +83,11 @@ public class RoleServiceImpl extends AbstractService implements CrudServiceExten
         }finally {
             closeConnection(connection);
         }
+    }
+
+    @Override
+    public Role getById(int id) throws ServiceException {
+        return null;
     }
 
     public Role build(Map<String, String[]> params) throws ServiceException {

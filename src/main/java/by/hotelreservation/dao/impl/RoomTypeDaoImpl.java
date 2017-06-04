@@ -6,6 +6,7 @@ import by.hotelreservation.dao.AbstractDao;
 import by.hotelreservation.dao.RoomTypeDao;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.util.ErrorStringBuilder;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 import static by.hotelreservation.dao.constants.Constants.*;
 
+@Repository
 public class RoomTypeDaoImpl extends AbstractDao implements RoomTypeDao {
     public List<String> getRoomTypeHeaders(Connection connection) throws DAOException {
         PreparedStatement statement = null;

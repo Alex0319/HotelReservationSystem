@@ -5,7 +5,6 @@ import by.hotelreservation.bean.entity.ReservationRoom;
 import by.hotelreservation.builder.*;
 import by.hotelreservation.dao.ReservationDao;
 import by.hotelreservation.dao.ReservationRoomDao;
-import by.hotelreservation.dao.impl.ReservationDaoImpl;
 import by.hotelreservation.dao.impl.ReservationRoomDaoImpl;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
@@ -14,6 +13,8 @@ import by.hotelreservation.exception.validateexception.IncorrectDateException;
 import by.hotelreservation.service.AbstractService;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorReservation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -22,9 +23,12 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class ReservationServiceImpl extends AbstractService implements CrudServiceExtended<Reservation> {
+    @Autowired
     private ReservationRoom reservationRoom;
-    private ReservationDao reservationDao = new ReservationDaoImpl();
+    @Autowired
+    private ReservationDao reservationDao;
 
     public List<String> getAllHeaders() throws ServiceException {
         Connection connection = null;
@@ -48,6 +52,11 @@ public class ReservationServiceImpl extends AbstractService implements CrudServi
         } finally {
             closeConnection(connection);
         }
+    }
+
+    @Override
+    public Reservation getById(int id) throws ServiceException {
+        return null;
     }
 
     public Reservation getEntity(Integer id) throws ServiceException {

@@ -1,8 +1,8 @@
 package by.hotelreservation.builder;
 
-import by.hotelreservation.bean.Discount;
-import by.hotelreservation.bean.Reservation;
-import by.hotelreservation.bean.User;
+import by.hotelreservation.bean.entity.Discount;
+import by.hotelreservation.bean.entity.Reservation;
+import by.hotelreservation.bean.entity.User;
 
 import java.util.Date;
 

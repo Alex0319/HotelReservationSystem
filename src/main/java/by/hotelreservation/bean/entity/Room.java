@@ -1,15 +1,28 @@
-package by.hotelreservation.bean;
+package by.hotelreservation.bean.entity;
 
 import by.hotelreservation.builder.RoomBuilder;
-import org.springframework.stereotype.Component;
 
-@Component
-public class Room {
-    private int id;
+import javax.persistence.*;
+
+@javax.persistence.Entity
+@Table(name = "room")
+@NamedQuery(name = "Room.getAll", query = "SELECT c FROM Room c")
+public class Room extends Entity{
+
+    @Column(name = "floor")
     private int floor;
+
+    @Column(name = "path")
     private String path;
+
+    @Column(name = "phone")
     private String phone;
+
+    @Column(name = "name")
     private String name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn(name = "idRoomType")
     private RoomType roomType;
 
 
@@ -30,14 +43,6 @@ public class Room {
 
     public void setRoomType(RoomType roomType) {
         this.roomType = roomType;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getFloor() {
@@ -73,14 +78,24 @@ public class Room {
     }
         @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Room room = (Room) o;
 
-        if (floor != room.floor) return false;
-        if (!phone.equals(room.phone)) return false;
-        if (!name.equals(room.name)) return false;
+        if (floor != room.floor) {
+            return false;
+        }
+        if (!phone.equals(room.phone)) {
+            return false;
+        }
+        if (!name.equals(room.name)) {
+            return false;
+        }
         return roomType != null ? roomType.equals(room.roomType) : room.roomType == null;
     }
 

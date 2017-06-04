@@ -1,11 +1,14 @@
-package by.hotelreservation.bean;
+package by.hotelreservation.bean.entity;
 
 import by.hotelreservation.builder.DiscountBuilder;
-import org.springframework.stereotype.Component;
 
-@Component
-public class Discount {
-    private int id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+@javax.persistence.Entity
+@Table(name = "discount")
+@NamedQuery(name = "Discount.getAll", query = "SELECT c FROM Discount c")
+public class Discount extends Entity{
     private String name;
 
     public Discount(){super();}
@@ -13,14 +16,6 @@ public class Discount {
     public Discount(DiscountBuilder discountBuilder){
         this.id = discountBuilder.getId();
         this.name = discountBuilder.getName();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

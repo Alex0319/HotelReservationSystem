@@ -1,6 +1,6 @@
 package by.hotelreservation.builder;
 
-import by.hotelreservation.bean.ParkingSpace;
+import by.hotelreservation.bean.entity.ParkingSpace;
 
 public class ParkingSpaceBuilder {
     private int id;

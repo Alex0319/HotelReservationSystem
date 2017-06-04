@@ -1,10 +1,8 @@
 package by.hotelreservation.service.impl;
 
-
 import by.hotelreservation.bean.entity.ParkingSpace;
 import by.hotelreservation.builder.ParkingSpaceBuilder;
 import by.hotelreservation.dao.ParkingSpaceDao;
-import by.hotelreservation.dao.impl.ParkingSpaceDaoImpl;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.IncorrectParkingSpaceLevelException;
@@ -12,13 +10,17 @@ import by.hotelreservation.exception.validateexception.IncorrectParkingSpaceRese
 import by.hotelreservation.service.AbstractService;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorParkingSpace;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class ParkingSpaceServiceImpl extends AbstractService implements CrudServiceExtended<ParkingSpace> {
-    private ParkingSpaceDao parkingSpaceDao = new ParkingSpaceDaoImpl();
+    @Autowired
+    private ParkingSpaceDao parkingSpaceDao;
 
     public List<String> getAllHeaders() throws ServiceException {
         Connection connection = null;
@@ -42,6 +44,11 @@ public class ParkingSpaceServiceImpl extends AbstractService implements CrudServ
         } finally {
             closeConnection(connection);
         }
+    }
+
+    @Override
+    public ParkingSpace getById(int id) throws ServiceException {
+        return null;
     }
 
     public List<ParkingSpace> add(ParkingSpace entity) throws ServiceException {

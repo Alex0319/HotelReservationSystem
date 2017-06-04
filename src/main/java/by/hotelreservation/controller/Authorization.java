@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Controller
 public class Authorization  {
-    private static final Logger logger = LogManager.getLogger(Authorization.class.getName());
+    private static final Logger logger = LogManager.getLogger(Authorization.class);
 
     @ResponseBody
     @RequestMapping(value = "/authorization", method = RequestMethod.POST, produces = "application/json")

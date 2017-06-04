@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Controller
 public class GetEntityHeaders  {
-    private static final Logger logger = LogManager.getLogger(GetEntityHeaders.class.getName());
+    private static final Logger logger = LogManager.getLogger(GetEntityHeaders.class);
 
     @ResponseBody
     @RequestMapping(value = "/get_headers", method = RequestMethod.GET, produces = "application/json")

@@ -2,7 +2,7 @@ package by.hotelreservation.controller;
 
 import by.hotelreservation.bean.entity.User;
 import by.hotelreservation.exception.ServiceException;
-import by.hotelreservation.service.impl.UserServiceImpl;
+import by.hotelreservation.service.CrudService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,10 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
-    private static final Logger logger = LogManager.getLogger(UserController.class.getName());
+    private static final Logger logger = LogManager.getLogger(UserController.class);
 
     @Autowired
-    private UserServiceImpl userService;
+    private CrudService<User> userService;
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public List<User> getAll(){
@@ -37,7 +37,7 @@ public class UserController {
     public User getById(@PathVariable int id){
         User user = null;
         try {
-            user = userService.getEntity(id);
+            user = userService.getById(id);
         }catch (ServiceException e){
             logger.error(e);
         }

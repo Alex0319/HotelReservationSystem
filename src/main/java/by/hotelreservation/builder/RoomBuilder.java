@@ -1,7 +1,7 @@
 package by.hotelreservation.builder;
 
-import by.hotelreservation.bean.Room;
-import by.hotelreservation.bean.RoomType;
+import by.hotelreservation.bean.entity.Room;
+import by.hotelreservation.bean.entity.RoomType;
 
 public class RoomBuilder {
     private int id;

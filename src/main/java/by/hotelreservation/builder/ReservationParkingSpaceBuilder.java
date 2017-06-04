@@ -1,8 +1,8 @@
 package by.hotelreservation.builder;
 
-import by.hotelreservation.bean.ParkingSpace;
-import by.hotelreservation.bean.Reservation;
-import by.hotelreservation.bean.ReservationParkingSpace;
+import by.hotelreservation.bean.entity.ParkingSpace;
+import by.hotelreservation.bean.entity.Reservation;
+import by.hotelreservation.bean.entity.ReservationParkingSpace;
 
 public class ReservationParkingSpaceBuilder {
     private Reservation reservation;

@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Controller
 public class Registration  {
-    private static final Logger logger = LogManager.getLogger(Registration.class.getName());
+    private static final Logger logger = LogManager.getLogger(Registration.class);
 
     @ResponseBody
     @RequestMapping(value = "/registration", method = RequestMethod.POST, produces = "application/json")

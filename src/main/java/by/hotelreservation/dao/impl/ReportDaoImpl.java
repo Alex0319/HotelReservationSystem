@@ -6,6 +6,7 @@ import by.hotelreservation.bean.RoomReport;
 import by.hotelreservation.dao.AbstractDao;
 import by.hotelreservation.dao.ReportDao;
 import by.hotelreservation.exception.DAOException;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +15,7 @@ import java.sql.SQLException;
 
 import static by.hotelreservation.dao.constants.Constants.*;
 
+@Repository
 public class ReportDaoImpl extends AbstractDao implements ReportDao{
     @Override
     public Report getFinancialReportInfoByMonth(Report report, Connection connection) throws DAOException {

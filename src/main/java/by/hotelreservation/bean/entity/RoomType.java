@@ -1,16 +1,29 @@
-package by.hotelreservation.bean;
+package by.hotelreservation.bean.entity;
 
 import by.hotelreservation.builder.RoomTypeBuilder;
-import org.springframework.stereotype.Component;
 
-@Component
-public class RoomType {
-    private int id;
+import javax.persistence.Column;
+import javax.persistence.Table;
+
+@javax.persistence.Entity
+@Table(name = "room_type")
+public class RoomType extends Entity{
+    @Column(name = "roomsCount")
     private int roomsCount;
+
+    @Column(name = "bedsCount")
     private int bedsCount;
+
+    @Column(name = "bathroomsCount")
     private int bathroomsCount;
+
+    @Column(name = "size")
     private int size;
+
+    @Column(name = "costPerDay")
     private float costPerDay;
+
+    @Column(name = "additionalInfo")
     private String additionalInfo;
 
     public RoomType() {super();
@@ -24,14 +37,6 @@ public class RoomType {
         this.additionalInfo = roomTypeBuilder.getAdditionalInfo();
         this.bathroomsCount = roomTypeBuilder.getBathroomsCount();
         this.size = roomTypeBuilder.getSize();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getRoomsCount() {
