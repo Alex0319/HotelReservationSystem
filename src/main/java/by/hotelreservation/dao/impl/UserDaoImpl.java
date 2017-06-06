@@ -1,9 +1,9 @@
-package by.hotelreservation.newdao.impl;
+package by.hotelreservation.dao.impl;
 
 import by.hotelreservation.bean.entity.User;
 import by.hotelreservation.exception.DAOException;
-import by.hotelreservation.newdao.AbstractDao;
-import by.hotelreservation.newdao.UserDao;
+import by.hotelreservation.dao.AbstractDao;
+import by.hotelreservation.dao.UserDao;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;

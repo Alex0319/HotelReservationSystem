@@ -5,7 +5,7 @@ import by.hotelreservation.builder.RoomTypeBuilder;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.*;
-import by.hotelreservation.newdao.EntityDao;
+import by.hotelreservation.dao.EntityDao;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorRoomType;
 import org.springframework.beans.factory.annotation.Autowired;

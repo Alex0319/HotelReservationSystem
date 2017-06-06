@@ -1,15 +1,15 @@
-package by.hotelreservation.newdao.impl;
+package by.hotelreservation.dao.impl;
 
 import by.hotelreservation.bean.Report;
 import by.hotelreservation.exception.DAOException;
-import by.hotelreservation.newdao.ReportDao;
+import by.hotelreservation.dao.ReportDao;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-import static by.hotelreservation.newdao.constants.Constants.*;
+import static by.hotelreservation.dao.constants.Constants.*;
 
 @Repository
 public class ReportDaoImpl implements ReportDao{

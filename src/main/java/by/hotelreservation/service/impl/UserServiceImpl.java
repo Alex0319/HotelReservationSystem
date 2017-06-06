@@ -6,7 +6,7 @@ import by.hotelreservation.builder.UserBuilder;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.*;
-import by.hotelreservation.newdao.UserDao;
+import by.hotelreservation.dao.UserDao;
 import by.hotelreservation.security.MD5;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorUser;

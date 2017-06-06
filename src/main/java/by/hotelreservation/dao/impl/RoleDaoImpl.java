@@ -1,7 +1,7 @@
-package by.hotelreservation.newdao.impl;
+package by.hotelreservation.dao.impl;
 
 import by.hotelreservation.bean.entity.Role;
-import by.hotelreservation.newdao.AbstractDao;
+import by.hotelreservation.dao.AbstractDao;
 import org.springframework.stereotype.Repository;
 
 @Repository

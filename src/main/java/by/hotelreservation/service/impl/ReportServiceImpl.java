@@ -3,7 +3,7 @@ package by.hotelreservation.service.impl;
 import by.hotelreservation.bean.Report;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
-import by.hotelreservation.newdao.ReportDao;
+import by.hotelreservation.dao.ReportDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

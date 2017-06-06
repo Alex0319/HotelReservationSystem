@@ -6,7 +6,7 @@ import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.IncorrectNameRoleException;
 import by.hotelreservation.exception.validateexception.IncorrectRightRoleException;
-import by.hotelreservation.newdao.EntityDao;
+import by.hotelreservation.dao.EntityDao;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorRole;
 import org.springframework.beans.factory.annotation.Autowired;

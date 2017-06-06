@@ -1,4 +1,4 @@
-package by.hotelreservation.newdao;
+package by.hotelreservation.dao;
 
 import by.hotelreservation.bean.Report;
 import by.hotelreservation.exception.DAOException;

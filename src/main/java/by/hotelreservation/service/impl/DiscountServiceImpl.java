@@ -5,7 +5,7 @@ import by.hotelreservation.builder.DiscountBuilder;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.IncorrectDiscountNameException;
-import by.hotelreservation.newdao.EntityDao;
+import by.hotelreservation.dao.EntityDao;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorDiscount;
 import org.springframework.beans.factory.annotation.Autowired;

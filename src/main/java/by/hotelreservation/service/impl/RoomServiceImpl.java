@@ -8,7 +8,7 @@ import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.IncorrectRoomNameException;
 import by.hotelreservation.exception.validateexception.IncorrectRoomPathException;
 import by.hotelreservation.exception.validateexception.IncorrectRoomPhoneNumberException;
-import by.hotelreservation.newdao.EntityDao;
+import by.hotelreservation.dao.EntityDao;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorRoom;
 import org.springframework.beans.factory.annotation.Autowired;

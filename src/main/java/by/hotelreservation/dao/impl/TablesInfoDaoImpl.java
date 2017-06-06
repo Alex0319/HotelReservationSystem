@@ -1,14 +1,14 @@
-package by.hotelreservation.newdao.impl;
+package by.hotelreservation.dao.impl;
 
 import by.hotelreservation.exception.DAOException;
-import by.hotelreservation.newdao.TablesInfoDao;
+import by.hotelreservation.dao.TablesInfoDao;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-import static by.hotelreservation.newdao.constants.Constants.GET_ALL_NAMES_TABLES;
+import static by.hotelreservation.dao.constants.Constants.GET_ALL_NAMES_TABLES;
 
 @Repository
 public class TablesInfoDaoImpl implements TablesInfoDao{
