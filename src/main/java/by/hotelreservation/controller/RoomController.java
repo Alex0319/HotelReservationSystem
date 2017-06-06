@@ -22,7 +22,7 @@ public class RoomController {
     @Autowired
     private CrudService<Room> roomService;
 
-    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public List<Room> getAll(){
         List<Room> resultList = null;
         try {
@@ -33,7 +33,7 @@ public class RoomController {
         return resultList;
     }
 
-    @RequestMapping(value = "/{id}" , method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/{id}" , method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public Room getById(@PathVariable int id){
         Room room = null;
         try {

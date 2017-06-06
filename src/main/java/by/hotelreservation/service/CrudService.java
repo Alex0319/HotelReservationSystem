@@ -12,5 +12,4 @@ public interface CrudService<T> {
     void delete(T entity) throws ServiceException;
     void update(T entity) throws ServiceException;
     T build(Map<String, String[]> params) throws ServiceException;
-    T getLastInsertedEntity() throws ServiceException;
 }

@@ -2,92 +2,73 @@ package by.hotelreservation.service.impl;
 
 import by.hotelreservation.bean.entity.Role;
 import by.hotelreservation.builder.RoleBuilder;
-import by.hotelreservation.dao.RoleDao;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.IncorrectNameRoleException;
 import by.hotelreservation.exception.validateexception.IncorrectRightRoleException;
-import by.hotelreservation.service.AbstractService;
+import by.hotelreservation.newdao.EntityDao;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class RoleServiceImpl extends AbstractService implements CrudServiceExtended<Role> {
+public class RoleServiceImpl implements CrudServiceExtended<Role> {
     @Autowired
-    private RoleDao roleDao;
+    private EntityDao<Role> roleDao;
 
     public List<String> getAllHeaders() throws ServiceException {
-        Connection connection = null;
         try{
-            connection = getConnection();
-            return roleDao.getRoleHeaders(connection);
-        }catch (DAOException e){
+            return null;//roleDao.getRoleHeaders(connection);
+        }catch (Exception e){
             throw new ServiceException(e);
-        }finally {
-            closeConnection(connection);
         }
     }
 
     public List<Role> getAll() throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            return roleDao.getRoles(connection);
+            return roleDao.getAll();
         } catch (DAOException e) {
             throw new ServiceException(e);
-        }finally {
-            closeConnection(connection);
         }
     }
 
     public List<Role> add(Role entity) throws ServiceException {
-        Connection connection = null;
         List<Role> roles;
         try {
-            connection = getConnection();
-            roleDao.addRole(entity,connection);
-            roles = roleDao.getRoles(connection);
+            roleDao.add(entity);
+            roles = roleDao.getAll();
         } catch (DAOException e) {
             throw new ServiceException(e);
-        }finally {
-            closeConnection(connection);
         }
         return roles;
     }
 
     public void delete(Role entity) throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            roleDao.removeRole(entity,connection);
+            roleDao.remove(entity.getId());
         } catch (DAOException e) {
             throw new ServiceException(e);
-        }finally {
-            closeConnection(connection);
         }
     }
 
     public void update(Role entity) throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            roleDao.updateRole(entity,connection);
+            roleDao.update(entity);
         } catch (DAOException e) {
             throw new ServiceException(e);
-        }finally {
-            closeConnection(connection);
         }
     }
 
-    @Override
     public Role getById(int id) throws ServiceException {
-        return null;
+        try {
+            return roleDao.getById(id);
+        }catch (DAOException e){
+            throw new ServiceException(e);
+        }
     }
 
     public Role build(Map<String, String[]> params) throws ServiceException {
@@ -110,19 +91,4 @@ public class RoleServiceImpl extends AbstractService implements CrudServiceExten
         }
         return null;
     }
-
-    @Override
-    public Role getLastInsertedEntity() throws ServiceException {
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            return roleDao.getLastInsertedRole(connection);
-        }catch (DAOException e){
-            throw new ServiceException(e);
-        }finally {
-            closeConnection(connection);
-        }
-    }
-
-
 }

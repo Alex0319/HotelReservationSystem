@@ -5,6 +5,7 @@ import by.hotelreservation.exception.DAOException;
 import java.util.List;
 
 public interface EntityDao<T> {
+
     List<T> getAll() throws DAOException;
     void add(T entity) throws DAOException;
     void remove(int id) throws DAOException;

@@ -1,30 +1,23 @@
 package by.hotelreservation.service.impl;
 
 import by.hotelreservation.bean.entity.User;
-import by.hotelreservation.dao.AuthDao;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
-import by.hotelreservation.service.AbstractService;
+import by.hotelreservation.newdao.UserDao;
 import by.hotelreservation.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
-
 @Service
-public class AuthServiceImpl extends AbstractService implements AuthService {
+public class AuthServiceImpl implements AuthService {
 	@Autowired
-	private AuthDao authDao;
+	private UserDao authDao;
 
 	public User checkUser(String email, String password)  throws ServiceException {
-		Connection connection = null;
 		try {
-			connection = getConnection();
-			return authDao.authorisation(email,password,connection);
+			return authDao.checkUser(email,password);
 		}catch (DAOException e){
 			throw new ServiceException(e);
-		}finally {
-			closeConnection(connection);
 		}
 	}
 

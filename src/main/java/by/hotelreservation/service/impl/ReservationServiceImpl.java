@@ -1,118 +1,80 @@
 package by.hotelreservation.service.impl;
 
 import by.hotelreservation.bean.entity.Reservation;
-import by.hotelreservation.bean.entity.ReservationRoom;
-import by.hotelreservation.builder.*;
-import by.hotelreservation.dao.ReservationDao;
-import by.hotelreservation.dao.ReservationRoomDao;
-import by.hotelreservation.dao.impl.ReservationRoomDaoImpl;
+import by.hotelreservation.builder.DiscountBuilder;
+import by.hotelreservation.builder.ReservationBuilder;
+import by.hotelreservation.builder.UserBuilder;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.IncorrectCostException;
 import by.hotelreservation.exception.validateexception.IncorrectDateException;
-import by.hotelreservation.service.AbstractService;
+import by.hotelreservation.newdao.ReservationDao;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorReservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
-@Service
-public class ReservationServiceImpl extends AbstractService implements CrudServiceExtended<Reservation> {
-    @Autowired
-    private ReservationRoom reservationRoom;
+@Service(value = "reservation")
+public class ReservationServiceImpl implements CrudServiceExtended<Reservation> {
     @Autowired
     private ReservationDao reservationDao;
 
     public List<String> getAllHeaders() throws ServiceException {
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            return reservationDao.getReservationHeaders(connection);
-        } catch (DAOException e) {
+        try{
+            return null;//roleDao.getRoleHeaders(connection);
+        }catch (Exception e){
             throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
         }
     }
 
     public List<Reservation> getAll() throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            return reservationDao.getAllReservations(connection);
+            return reservationDao.getAll();
         } catch (DAOException e) {
             throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
         }
     }
 
-    @Override
     public Reservation getById(int id) throws ServiceException {
-        return null;
-    }
-
-    public Reservation getEntity(Integer id) throws ServiceException {
-        Connection connection = null;
         Reservation reservation;
         try {
-            connection = getConnection();
-            reservation = reservationDao.getReservation(id, connection);
+            reservation = reservationDao.getById(id);
         } catch (DAOException e) {
             throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
         }
         return reservation;
     }
 
     public List<Reservation> add(Reservation entity) throws ServiceException {
         List<Reservation> reservations;
-        Connection connection = null;
         try {
-            connection = getConnection();
-            reservationDao.addReservation(entity, connection);
-            reservationRoom.setReservation(reservationDao.getLastInsertedReservation(connection));
-            ReservationRoomDao reservationRoomDao = new ReservationRoomDaoImpl();
-            reservationRoom.setReservation(reservationDao.getLastInsertedReservation(connection));
-            reservationRoomDao.addReservationRoom(reservationRoom, connection);
-            reservations = reservationDao.getAllReservations(connection);
+            reservationDao.add(entity);
+            reservations = reservationDao.getAll();
         } catch (DAOException e) {
             throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
         }
         return reservations;
     }
 
     public void delete(Reservation reservation) throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            reservationDao.removeReservation(reservation, connection);
+            reservationDao.remove(reservation.getId());
         } catch (DAOException e) {
             throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
         }
     }
 
     public void update(Reservation entity) throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            reservationDao.updateReservation(entity, connection);
+            reservationDao.update(entity);
         } catch (DAOException e) {
             throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
         }
     }
 
@@ -127,30 +89,11 @@ public class ReservationServiceImpl extends AbstractService implements CrudServi
                         .user(new UserBuilder().id(Integer.parseInt(params.get("idUser")[0])).build())
                         .discount(new DiscountBuilder().id(Integer.parseInt(params.get("idDiscount")[0])).build())
                         .build();
-                if(params.containsKey("idRoom")){
-                    reservationRoom = new ReservationRoomBuilder()
-                            .room(new RoomBuilder().id(Integer.parseInt(params.get("idRoom")[0])).build())
-                            .reservation(reservation)
-                            .build();
-                }
                 return reservation;
             }
         } catch (ParseException | IncorrectDateException | IncorrectCostException e) {
             throw new ServiceException(e);
         }
         return null;
-    }
-
-    @Override
-    public Reservation getLastInsertedEntity() throws ServiceException {
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            return reservationDao.getLastInsertedReservation(connection);
-        } catch (DAOException e) {
-            throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
-        }
     }
 }

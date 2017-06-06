@@ -1,11 +1,13 @@
 package by.hotelreservation.controller;
 
+import by.hotelreservation.bean.entity.Reservation;
 import by.hotelreservation.bean.entity.ReservationRoom;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.service.CrudService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,11 +22,12 @@ public class ReservationRoomController {
     private static final Logger logger = LogManager.getLogger(ReservationRoomController.class);
 
     @Autowired
-    private CrudService<ReservationRoom> reservationRoomService;
+    @Qualifier(value = "reservation_room_service")
+    private CrudService<Reservation> reservationRoomService;
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public List<ReservationRoom> getAll(){
-        List<ReservationRoom> resultList = null;
+    public List<Reservation> getAll(){
+        List<Reservation> resultList = null;
         try {
             resultList = reservationRoomService.getAll();
         }catch (ServiceException e){

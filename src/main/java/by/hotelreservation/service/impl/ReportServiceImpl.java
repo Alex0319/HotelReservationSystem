@@ -1,68 +1,49 @@
 package by.hotelreservation.service.impl;
 
 import by.hotelreservation.bean.Report;
-import by.hotelreservation.dao.ReportDao;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
-import by.hotelreservation.service.AbstractService;
+import by.hotelreservation.newdao.ReportDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
-
 @Service
-public class ReportServiceImpl extends AbstractService{
+public class ReportServiceImpl{
     @Autowired
 	private ReportDao reportDao;
 
 	public Report getFinancialReportInfoByMonth(Report report) throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            report = reportDao.getFinancialReportInfoByMonth(report, connection);
+            report = reportDao.getFinancialReportInfoByMonth(report);
         }catch (DAOException e){
             new ServiceException(e);
-        }finally {
-            closeConnection(connection);
         }
         return report;
     }
 
     public Report getFinancialReportInfoByQuarter(Report report) throws ServiceException{
-        Connection connection = null;
         try {
-            connection = getConnection();
-            report = reportDao.getFinancialReportInfoByQuarter(report, connection);
+            report = reportDao.getFinancialReportInfoByQuarter(report);
         }catch (DAOException e){
             new ServiceException(e);
-        }finally {
-            closeConnection(connection);
         }
         return report;
     }
 
     public Report getRoomReportInfoByMonth(Report report) throws ServiceException{
-        Connection connection = null;
         try {
-            connection = getConnection();
-            report = reportDao.getRoomReportInfoByMonth(report, connection);
+            report = reportDao.getRoomReportInfoByMonth(report);
         }catch (DAOException e){
             new ServiceException(e);
-        }finally {
-            closeConnection(connection);
         }
         return report;
     }
 
     public Report getRoomReportInfoByQuarter(Report report) throws ServiceException{
-        Connection connection = null;
         try {
-            connection = getConnection();
-            report = reportDao.getRoomReportInfoByQuarter(report, connection);
+            report = reportDao.getRoomReportInfoByQuarter(report);
         }catch (DAOException e){
             new ServiceException(e);
-        }finally {
-            closeConnection(connection);
         }
         return report;
     }

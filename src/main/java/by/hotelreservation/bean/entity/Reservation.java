@@ -3,22 +3,30 @@ package by.hotelreservation.bean.entity;
 import by.hotelreservation.builder.ReservationBuilder;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-@javax.persistence.Entity
+@Entity
 @Table(name = "reservation")
-@NamedQuery(name = "Reservation.getAll", query = "SELECT c FROM Reservation c")
-public class Reservation extends Entity{
-    private String dateIn;
-    private String dateOut;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn(name = "idUser")
-    private User user;
+public class Reservation extends AbstractEntity {
+    private Date dateIn;
+    private Date dateOut;
     private int costAdditionalServices;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn(name = "idDiscount")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idUser")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idDiscount")
     private Discount discount;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "reservation_room",
+            joinColumns = @JoinColumn(name = "idReservation"),
+            inverseJoinColumns = @JoinColumn(name = "idRoom"))
+    private Set<Room> rooms = new HashSet<>();
 
     public Reservation(){super();}
 
@@ -31,6 +39,14 @@ public class Reservation extends Entity{
         this.discount = reservationBuilder.getDiscount();
     }
 
+    public Set<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(Set<Room> rooms) {
+        this.rooms = rooms;
+    }
+
     public User getUser() {
         return user;
     }
@@ -39,19 +55,19 @@ public class Reservation extends Entity{
         this.user = user;
     }
 
-    public String getDateIn() {
+    public Date getDateIn() {
         return dateIn;
     }
 
-    public void setDateIn(String dateIn) {
+    public void setDateIn(Date dateIn) {
         this.dateIn = dateIn;
     }
 
-    public String getDateOut() {
+    public Date getDateOut() {
         return dateOut;
     }
 
-    public void setDateOut(String dateOut) {
+    public void setDateOut(Date dateOut) {
         this.dateOut = dateOut;
     }
 

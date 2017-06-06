@@ -1,7 +1,6 @@
 package by.hotelreservation.newdao;
 
 import by.hotelreservation.exception.DAOException;
-import by.hotelreservation.util.ReflectionUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,16 +8,19 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 public abstract class AbstractDao<T> implements EntityDao<T>{
+    private Class<T> entityBeanType;
+
     @PersistenceContext
     protected EntityManager entityManager;
 
-    private Class getEntityClass(){
-        return ReflectionUtils.getGenericParameterClass(this.getClass(), AbstractDao.class, 0);
+    public  AbstractDao(Class<T> entityBeanType){
+        this.entityBeanType = entityBeanType;
     }
 
     @Override
     public List<T> getAll() throws DAOException {
-        TypedQuery<T> namedQuery = entityManager.createQuery(String.format("SELECT c FROM %s c", getEntityClass().getName()), getEntityClass());
+        String str = String.format("SELECT c FROM %s c", entityBeanType.getName());
+        TypedQuery<T> namedQuery = entityManager.createQuery(String.format("SELECT c FROM %s c", entityBeanType.getName()), entityBeanType);
         return namedQuery.getResultList();
     }
 
@@ -45,6 +47,6 @@ public abstract class AbstractDao<T> implements EntityDao<T>{
 
     @Override
     public T getById(int id) throws DAOException {
-        return (T) entityManager.find(getEntityClass(), id);
+        return entityManager.find(entityBeanType, id);
     }
 }

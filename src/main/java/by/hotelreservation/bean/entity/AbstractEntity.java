@@ -3,9 +3,9 @@ package by.hotelreservation.bean.entity;
 import javax.persistence.*;
 
 @MappedSuperclass
-public abstract class Entity {
+public abstract class AbstractEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
 
     public int getId() {

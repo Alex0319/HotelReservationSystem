@@ -1,7 +1,6 @@
 package by.hotelreservation.documentbuilder.impl;
 
 import by.hotelreservation.bean.entity.Reservation;
-import by.hotelreservation.bean.entity.ReservationRoom;
 import by.hotelreservation.documentbuilder.ExcelDocumentBuilder;
 import by.hotelreservation.exception.ServiceException;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -14,9 +13,9 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import java.lang.reflect.Field;
 import java.util.List;
 
-public class ReservationRoomReportBuilder extends ExcelDocumentBuilder<List<ReservationRoom>>{
+public class ReservationRoomReportBuilder extends ExcelDocumentBuilder<List<Reservation>>{
     public ReservationRoomReportBuilder() {
-        super("Reservation report for user.xls");
+        super("Reservation report for user");
     }
 
     private static class Holder{
@@ -28,11 +27,11 @@ public class ReservationRoomReportBuilder extends ExcelDocumentBuilder<List<Rese
     }
 
     @Override
-    protected void fillDoc(HSSFWorkbook workbook,List<ReservationRoom> documentData) throws ServiceException {
+    protected void fillDoc(HSSFWorkbook workbook,List<Reservation> documentData) throws ServiceException {
         HSSFSheet sheet = workbook.createSheet("Report");
         int columnsCount = addHeader(sheet, documentData.get(0));
-        for (ReservationRoom reservationRoom : documentData) {
-            fillRow(sheet, reservationRoom.getReservation());
+        for (Reservation reservation : documentData) {
+            fillRow(sheet, reservation);
         }
         CellRangeAddress region = new CellRangeAddress(0,0,0,columnsCount);
         sheet.addMergedRegion(region);
@@ -51,10 +50,10 @@ public class ReservationRoomReportBuilder extends ExcelDocumentBuilder<List<Rese
         setCellStyle(row.createCell(5)).setCellValue(reservation.getDiscount().getId());
     }
 
-    private int addHeader(HSSFSheet sheet, ReservationRoom reservationRoom){
-        createRowWithCells(sheet, "Брони пользователя " + reservationRoom.getReservation().getUser().getUserFullname());
+    private int addHeader(HSSFSheet sheet, Reservation reservation){
+        createRowWithCells(sheet, "Брони пользователя " + reservation.getUser().getUserFullname());
         Row row = createRowWithCells(sheet, null);
-        Field[] fields = reservationRoom.getReservation().getClass().getDeclaredFields();
+        Field[] fields = reservation.getClass().getDeclaredFields();
         for (int i=0; i< fields.length; i++){
             setCellStyle(row.createCell(i)).setCellValue(fields[i].getName());
         }

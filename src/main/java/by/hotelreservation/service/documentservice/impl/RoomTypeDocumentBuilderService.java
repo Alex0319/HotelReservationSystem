@@ -13,7 +13,7 @@ import java.util.Map;
 public class RoomTypeDocumentBuilderService implements DocumentBuilderService{
     @Override
     public DocumentObject buildDocument(Map<String, String[]> documentInfo) throws ServiceException {
-        RoomType roomType = new RoomTypeServiceImpl().getEntity(Integer.parseInt(documentInfo.get("id")[0]));
+        RoomType roomType = new RoomTypeServiceImpl().getById(Integer.parseInt(documentInfo.get("id")[0]));
         if(roomType != null) {
             DocumentBuilder roomTypeDocumentBuilder = RoomTypeDocumentBuilder.getInstance();
             return roomTypeDocumentBuilder.buildDocument(roomType);

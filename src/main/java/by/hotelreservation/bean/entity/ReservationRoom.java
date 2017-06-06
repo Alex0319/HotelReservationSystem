@@ -1,9 +1,7 @@
 package by.hotelreservation.bean.entity;
 
 import by.hotelreservation.builder.ReservationRoomBuilder;
-import org.springframework.stereotype.Component;
 
-@Component
 public class ReservationRoom {
     private Room room;
     private Reservation reservation;

@@ -1,4 +1,4 @@
-package by.hotelreservation.dao.constants;
+package by.hotelreservation.newdao.constants;
 
 public class Constants {
     public static final String GET_ALL_NAMES_TABLES = "SHOW TABLES FROM `db_hotel`";

@@ -3,28 +3,26 @@ package by.hotelreservation.bean.entity;
 import by.hotelreservation.builder.RoomBuilder;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
-@javax.persistence.Entity
+@Entity
 @Table(name = "room")
-@NamedQuery(name = "Room.getAll", query = "SELECT c FROM Room c")
-public class Room extends Entity{
-
-    @Column(name = "floor")
+public class Room extends AbstractEntity {
     private int floor;
-
-    @Column(name = "path")
     private String path;
-
-    @Column(name = "phone")
     private String phone;
-
-    @Column(name = "name")
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn(name = "idRoomType")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idRoomType")
     private RoomType roomType;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="reservation_room",
+            joinColumns = @JoinColumn(name = "idRoom"),
+            inverseJoinColumns = @JoinColumn(name = "idReservation"))
+    private Set<Reservation> reservations = new HashSet<>();
 
     public Room(){super();}
 
@@ -35,6 +33,18 @@ public class Room extends Entity{
         this.floor = roomBuilder.getFloor();
         this.phone = roomBuilder.getPhone();
         this.roomType = roomBuilder.getRoomType();
+    }
+
+    public Set<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public void addReservation(Reservation reservation){
+        this.reservations.add(reservation);
     }
 
     public RoomType getRoomType() {

@@ -3,103 +3,77 @@ package by.hotelreservation.service.impl;
 import by.hotelreservation.bean.entity.Room;
 import by.hotelreservation.builder.RoomBuilder;
 import by.hotelreservation.builder.RoomTypeBuilder;
-import by.hotelreservation.dao.RoomDao;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.IncorrectRoomNameException;
 import by.hotelreservation.exception.validateexception.IncorrectRoomPathException;
 import by.hotelreservation.exception.validateexception.IncorrectRoomPhoneNumberException;
-import by.hotelreservation.service.AbstractService;
+import by.hotelreservation.newdao.EntityDao;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorRoom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
-@Service(value = "roomService")
+@Service
 @Transactional
-public class RoomServiceImpl extends AbstractService implements CrudServiceExtended<Room> {
+public class RoomServiceImpl implements CrudServiceExtended<Room> {
     @Autowired
-    private RoomDao roomDao;
+    private EntityDao<Room> roomDao;
 
     public List<String> getAllHeaders() throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            return roomDao.getRoomHeaders();
-        } catch (DAOException e) {
+            return null;//roomTypeDao.getRoomTypeHeaders(connection);
+        } catch (Exception e) {
             throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
         }
     }
 
     public List<Room> getAll() throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            return roomDao.getRooms();
+            return roomDao.getAll();
         } catch (DAOException e) {
             throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
         }
     }
 
     public Room getById(int id) throws ServiceException {
-        Connection connection = null;
         Room room;
         try {
-            connection = getConnection();
-            room = roomDao.getRoom(id);
+            room = roomDao.getById(id);
         } catch (DAOException e) {
             throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
         }
         return room;
     }
 
     public List<Room> add(Room entity) throws ServiceException {
         List<Room> rooms;
-        Connection connection = null;
         try {
-            connection = getConnection();
-            roomDao.addRoom(entity);
-            rooms = roomDao.getRooms();
+            roomDao.add(entity);
+            rooms = roomDao.getAll();
         } catch (DAOException e) {
             throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
         }
         return rooms;
     }
 
     public void delete(Room room) throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            roomDao.removeRoom(room);
+            roomDao.remove(room.getId());
         } catch (DAOException e) {
             throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
         }
     }
 
     public void update(Room entity) throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            roomDao.updateRoom(entity);
+            roomDao.update(entity);
         } catch (DAOException e) {
             throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
         }
     }
 
@@ -120,18 +94,5 @@ public class RoomServiceImpl extends AbstractService implements CrudServiceExten
             throw new ServiceException(e);
         }
         return null;
-    }
-
-    @Override
-    public Room getLastInsertedEntity() throws ServiceException {
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            return roomDao.getLastInsertedRoom();
-        } catch (DAOException e) {
-            throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
-        }
     }
 }

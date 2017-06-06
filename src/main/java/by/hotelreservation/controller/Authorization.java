@@ -27,7 +27,6 @@ public class Authorization  {
             Map<String, String[]> requestParams = request.getParameterMap();
             AuthService service = new AuthServiceImpl();
             user = service.checkUser(requestParams.get("email")[0], MD5.crypt(requestParams.get("password")[0]));
-            return user;
         } catch (ServiceException e) {
             logger.error(e);
         }

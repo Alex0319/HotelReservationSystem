@@ -1,6 +1,7 @@
 package by.hotelreservation.documentbuilder.impl;
 
-import by.hotelreservation.bean.entity.ReservationRoom;
+import by.hotelreservation.bean.entity.Reservation;
+import by.hotelreservation.bean.entity.Room;
 import by.hotelreservation.documentbuilder.PdfDocumentBuilder;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.AcroFields;
@@ -9,9 +10,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
-public class ReservationVoucherDocumentBuilder extends PdfDocumentBuilder<List<ReservationRoom>>{
+public class ReservationVoucherDocumentBuilder extends PdfDocumentBuilder<Reservation>{
     private ReservationVoucherDocumentBuilder(){
         super("/documents/reservation_voucher_blank.pdf", "Reservation voucher.pdf");
     }
@@ -25,14 +25,13 @@ public class ReservationVoucherDocumentBuilder extends PdfDocumentBuilder<List<R
     }
 
     @Override
-    protected void setFields(AcroFields form, List<ReservationRoom> documentData) throws DocumentException{
+    protected void setFields(AcroFields form, Reservation documentData) throws DocumentException{
         try {
-            int daysCount = getDaysCount(documentData.get(0).getReservation().getDateIn(),
-                    documentData.get(0).getReservation().getDateOut());
-            form.setField("reservation_id", Integer.toString(documentData.get(0).getReservation().getId()));
-            form.setField("date-in", getTime(documentData.get(0).getReservation().getDateIn()));
-            form.setField("date-out", getTime(documentData.get(0).getReservation().getDateOut()));
-            form.setField("user_name", documentData.get(0).getReservation().getUser().getUserFullname());
+            int daysCount = getDaysCount(documentData.getDateIn().toString(), documentData.getDateOut().toString());
+            form.setField("reservation_id", Integer.toString(documentData.getId()));
+            form.setField("date-in", getTime(documentData.getDateIn().toString()));
+            form.setField("date-out", getTime(documentData.getDateOut().toString()));
+            form.setField("user_name", documentData.getUser().getUserFullname());
             form.setField("reservation_info", getReservationInfo(documentData, daysCount));
             form.setField("total_cost", getTotalCost(documentData, daysCount));
         }catch (IOException | ParseException e){
@@ -44,11 +43,11 @@ public class ReservationVoucherDocumentBuilder extends PdfDocumentBuilder<List<R
         return new SimpleDateFormat("EEEE, dd MMM yyy").format(new Date(new SimpleDateFormat("yyyy-MM-dd").parse(date).getTime()));
     }
 
-    private String getReservationInfo(List<ReservationRoom> documentData, int daysCount){
+    private String getReservationInfo(Reservation documentData, int daysCount){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(getNightTitle(daysCount));
         stringBuilder.append(", ");
-        stringBuilder.append(documentData.size() + " номер");
+        stringBuilder.append(documentData.getRooms().size() + " номер");
         return stringBuilder.toString();
     }
 
@@ -58,11 +57,11 @@ public class ReservationVoucherDocumentBuilder extends PdfDocumentBuilder<List<R
         return (int) ((dateOutMilsec - dateInMilsec) / (24 * 60 * 60 * 1000));
     }
 
-    private String getTotalCost(List<ReservationRoom> documentInfo, int daysCount){
+    private String getTotalCost(Reservation reservation, int daysCount){
         int result = 0;
-        for(ReservationRoom reservationRoom: documentInfo){
-            result += reservationRoom.getReservation().getCostAdditionalServices();
-            result += reservationRoom.getRoom().getRoomType().getCostPerDay() * daysCount;
+        for(Room room: reservation.getRooms()){
+            result += reservation.getCostAdditionalServices();
+            result += room.getRoomType().getCostPerDay() * daysCount;
         }
         return Integer.toString(result);
     }

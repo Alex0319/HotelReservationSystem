@@ -208,7 +208,7 @@ var mapStringTable = {
 function deleteRow(obj) {
     $.ajax({
         type: 'DELETE',
-        url: NameTable + '&' +  formParams(obj.closest('tr').rowIndex),
+        url: NameTable + '?' +  formParams(obj.closest('tr').rowIndex),
         success:function(result){
             if(result==null || result.length == 0){
                 document.getElementById('tableHotel').deleteRow(obj.closest('tr').rowIndex);

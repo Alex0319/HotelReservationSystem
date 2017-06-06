@@ -2,36 +2,19 @@ package by.hotelreservation.bean.entity;
 
 import by.hotelreservation.builder.RoleBuilder;
 
-import javax.persistence.Column;
-import javax.persistence.NamedQuery;
+import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@javax.persistence.Entity
+@Entity
 @Table(name = "role")
-@NamedQuery(name = "Role.getAll", query = "SELECT c FROM Role c")
-public class Role extends Entity{
-    @Column(name = "nameRole")
+public class Role extends AbstractEntity {
     private String nameRole;
-
-    @Column(name = "update")
     private byte update;
-
-    @Column(name = "delete")
     private byte delete;
-
-    @Column(name = "insert")
     private byte insert;
-
-    @Column(name = "create")
     private byte create;
-
-    @Column(name = "select")
     private byte select;
-
-    @Column(name = "drop")
     private byte drop;
-
-    @Column(name = "grant")
     private byte grant;
 
     public Role() {

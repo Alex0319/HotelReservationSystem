@@ -2,13 +2,12 @@ package by.hotelreservation.bean.entity;
 
 import by.hotelreservation.builder.DiscountBuilder;
 
-import javax.persistence.NamedQuery;
+import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@javax.persistence.Entity
+@Entity
 @Table(name = "discount")
-@NamedQuery(name = "Discount.getAll", query = "SELECT c FROM Discount c")
-public class Discount extends Entity{
+public class Discount extends AbstractEntity {
     private String name;
 
     public Discount(){super();}

@@ -26,7 +26,7 @@ public class UserController {
     public List<User> getAll(){
         List<User> resultList = null;
         try {
-            resultList = userService.getAll();
+                resultList = userService.getAll();
         }catch (ServiceException e){
             logger.error(e);
         }

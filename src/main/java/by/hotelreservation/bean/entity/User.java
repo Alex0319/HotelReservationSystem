@@ -4,10 +4,9 @@ import by.hotelreservation.builder.UserBuilder;
 
 import javax.persistence.*;
 
-@javax.persistence.Entity
+@Entity
 @Table(name = "user")
-@NamedQuery(name = "User.getAll", query = "SELECT c FROM User c")
-public class User extends Entity{
+public class User extends AbstractEntity {
     private String name;
     private String surname;
     private String email;
@@ -16,8 +15,8 @@ public class User extends Entity{
     private String passportNumber;
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn(name = "idRole")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idRole")
     private Role role;
 
     public User(){super();}

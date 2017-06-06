@@ -2,90 +2,72 @@ package by.hotelreservation.service.impl;
 
 import by.hotelreservation.bean.entity.Discount;
 import by.hotelreservation.builder.DiscountBuilder;
-import by.hotelreservation.dao.DiscountDao;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.IncorrectDiscountNameException;
-import by.hotelreservation.service.AbstractService;
+import by.hotelreservation.newdao.EntityDao;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorDiscount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class DiscountServiceImpl extends AbstractService implements CrudServiceExtended<Discount> {
+public class DiscountServiceImpl implements CrudServiceExtended<Discount> {
     @Autowired
-    private DiscountDao discountDao;
+    private EntityDao<Discount> discountDao;
 
     public List<String> getAllHeaders() throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            return discountDao.getDiscountHeaders(connection);
-        }catch (DAOException e){
+            return null;// discountDao.getDiscountHeaders();
+        }catch (Exception e){
             throw new ServiceException(e);
-        }finally {
-            closeConnection(connection);
         }
     }
 
     public List<Discount> getAll() throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            return discountDao.getDiscounts(connection);
+            return discountDao.getAll();
         }catch (DAOException e){
             throw new ServiceException(e);
-        }finally {
-            closeConnection(connection);
         }
     }
 
     @Override
     public Discount getById(int id) throws ServiceException {
-        return null;
+        try {
+            return discountDao.getById(id);
+        }catch (DAOException e){
+            throw new ServiceException(e);
+        }
     }
 
     public List<Discount> add(Discount entity) throws ServiceException {
-        Connection connection = null;
         List<Discount> discounts;
         try {
-            connection = getConnection();
-            discountDao.addDiscount(entity,connection);
-            discounts = discountDao.getDiscounts(connection);
+            discountDao.add(entity);
+            discounts = discountDao.getAll();
         }catch (DAOException e){
             throw new ServiceException(e);
-        }finally {
-            closeConnection(connection);
         }
         return discounts;
     }
 
     public void delete(Discount discount) throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            discountDao.removeDiscount(discount,connection);
+            discountDao.remove(discount.getId());
         }catch (DAOException e){
             throw new ServiceException(e);
-        }finally {
-            closeConnection(connection);
         }
     }
 
     public void update(Discount entity) throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            discountDao.updateDiscount(entity,connection);
+            discountDao.update(entity);
         }catch (DAOException e){
             throw new ServiceException(e);
-        }finally {
-            closeConnection(connection);
         }
     }
 
@@ -102,18 +84,4 @@ public class DiscountServiceImpl extends AbstractService implements CrudServiceE
         }
         return null;
     }
-
-    @Override
-    public Discount getLastInsertedEntity() throws ServiceException {
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            return discountDao.getLastInsertedDiscount(connection);
-        }catch (DAOException e){
-            throw new ServiceException(e);
-        }finally {
-            closeConnection(connection);
-        }
-    }
-
 }

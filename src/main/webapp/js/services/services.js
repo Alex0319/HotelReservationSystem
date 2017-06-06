@@ -61,7 +61,7 @@ function generateHtml(roomObj) {
 function getRooms() {
     $.ajax({
         type: 'GET',
-        url: '/get_all?tableName=room&rights=4',
+        url: '/room?rights=4',
         success: function(data) {
             generateRooms(data);
         }

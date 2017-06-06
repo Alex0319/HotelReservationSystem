@@ -3,100 +3,74 @@ package by.hotelreservation.service.impl;
 import by.hotelreservation.bean.entity.User;
 import by.hotelreservation.builder.RoleBuilder;
 import by.hotelreservation.builder.UserBuilder;
-import by.hotelreservation.dao.UserDao;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.*;
+import by.hotelreservation.newdao.UserDao;
 import by.hotelreservation.security.MD5;
-import by.hotelreservation.service.AbstractService;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
-@Service(value = "userService")
-public class UserServiceImpl extends AbstractService implements CrudServiceExtended<User> {
+@Service
+public class UserServiceImpl implements CrudServiceExtended<User> {
     @Autowired
     private UserDao userDao;
 
     public List<String> getAllHeaders() throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            return userDao.getUserHeaders(connection);
-        } catch (DAOException e) {
+            return null;// userDao.getUserHeaders(connection);
+        } catch (Exception e) {
             throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
         }
     }
 
     public List<User> getAll() throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            return userDao.getUsers(connection);
+            return userDao.getAll();
         } catch (DAOException e) {
             throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
         }
     }
 
     public User getById(int id) throws ServiceException {
-        Connection connection = null;
         User user;
         try {
-            connection = getConnection();
-            user = userDao.getUser(connection, id);
+            user = userDao.getById(id);
         } catch (DAOException e) {
             throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
         }
         return user;
     }
 
     public List<User> add(User entity) throws ServiceException {
-        Connection connection = null;
         List<User> users;
         try {
-            connection = getConnection();
-            userDao.addUser(entity, connection);
-            users = userDao.getUsers(connection);
+            userDao.add(entity);
+            users = userDao.getAll();
         } catch (DAOException e) {
             throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
         }
         return users;
     }
 
     public void delete(User user) throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            userDao.removeUser(user, connection);
+            userDao.remove(user.getId());
         } catch (DAOException e) {
             throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
         }
     }
 
     public void update(User entity) throws ServiceException {
-        Connection connection = null;
         try {
-            connection = getConnection();
-            userDao.updateUser(entity, connection);
+            userDao.update(entity);
         } catch (DAOException e) {
             throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
         }
     }
 
@@ -123,18 +97,4 @@ public class UserServiceImpl extends AbstractService implements CrudServiceExten
         }
         return null;
     }
-
-    @Override
-    public User getLastInsertedEntity() throws ServiceException {
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            return userDao.getLastInsertedUser(connection);
-        } catch (DAOException e) {
-            throw new ServiceException(e);
-        } finally {
-            closeConnection(connection);
-        }
-    }
-
 }
