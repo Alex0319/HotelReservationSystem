@@ -19,30 +19,23 @@ public abstract class AbstractDao<T> implements EntityDao<T>{
 
     @Override
     public List<T> getAll() throws DAOException {
-        String str = String.format("SELECT c FROM %s c", entityBeanType.getName());
         TypedQuery<T> namedQuery = entityManager.createQuery(String.format("SELECT c FROM %s c", entityBeanType.getName()), entityBeanType);
         return namedQuery.getResultList();
     }
 
     @Override
     public void add(T entity) throws DAOException {
-        entityManager.getTransaction().begin();
-        entityManager.merge(entity);
-        entityManager.getTransaction().commit();
+        entityManager.persist(entity);
     }
 
     @Override
     public void remove(int id) throws DAOException {
-        entityManager.getTransaction().begin();
         entityManager.remove(getById(id));
-        entityManager.getTransaction().commit();
     }
 
     @Override
     public void update(T entity) throws DAOException {
-        entityManager.getTransaction().begin();
         entityManager.merge(entity);
-        entityManager.getTransaction().commit();
     }
 
     @Override

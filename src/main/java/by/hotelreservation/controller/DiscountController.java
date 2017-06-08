@@ -1,11 +1,13 @@
 package by.hotelreservation.controller;
 
+import by.hotelreservation.bean.dto.EntityDto;
 import by.hotelreservation.bean.entity.Discount;
 import by.hotelreservation.exception.ServiceException;
-import by.hotelreservation.service.CrudService;
+import by.hotelreservation.service.CrudServiceExtended;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,13 +22,14 @@ public class DiscountController {
     private static final Logger logger = LogManager.getLogger(DiscountController.class);
 
     @Autowired
-    private CrudService<Discount> discountService;
+    @Qualifier(value = "discountService")
+    private CrudServiceExtended<Discount> discountService;
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public List<Discount> getAll(){
         List<Discount> resultList = null;
         try {
-            resultList = discountService.getAll();
+            resultList = (List<Discount>) discountService.getAll();
         }catch (ServiceException e){
             logger.error(e);
         }
@@ -37,7 +40,7 @@ public class DiscountController {
     public Discount getById(@PathVariable int id){
         Discount discount = null;
         try {
-            discount = discountService.getById(id);
+            discount = (Discount) discountService.getById(id);
         }catch (ServiceException e){
             logger.error(e);
         }
@@ -78,5 +81,16 @@ public class DiscountController {
             result = e.getMessage().substring(e.getMessage().lastIndexOf(":")+1);
         }
         return result;
+    }
+
+    @RequestMapping(value = "/get_headers",method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    public List<EntityDto> getAllHeaders(){
+        List<EntityDto> resultList = null;
+        try {
+            resultList = discountService.getAllHeaders();
+        }catch (ServiceException e){
+            logger.error(e);
+        }
+        return resultList;
     }
 }

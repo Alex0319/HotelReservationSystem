@@ -1,35 +1,38 @@
 package by.hotelreservation.service.impl;
 
+import by.hotelreservation.bean.dto.EntityDto;
 import by.hotelreservation.bean.entity.Room;
 import by.hotelreservation.builder.RoomBuilder;
 import by.hotelreservation.builder.RoomTypeBuilder;
+import by.hotelreservation.dao.EntityDao;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.IncorrectRoomNameException;
 import by.hotelreservation.exception.validateexception.IncorrectRoomPathException;
 import by.hotelreservation.exception.validateexception.IncorrectRoomPhoneNumberException;
-import by.hotelreservation.dao.EntityDao;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorRoom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service("roomService")
 @Transactional
 public class RoomServiceImpl implements CrudServiceExtended<Room> {
     @Autowired
     private EntityDao<Room> roomDao;
 
-    public List<String> getAllHeaders() throws ServiceException {
-        try {
-            return null;//roomTypeDao.getRoomTypeHeaders(connection);
-        } catch (Exception e) {
-            throw new ServiceException(e);
+    public List<EntityDto> getAllHeaders() throws ServiceException {
+        List<EntityDto> resultList = new ArrayList<>();
+        List<Room> roomList = getAll();
+        for (Room room: roomList) {
+            resultList.add(new EntityDto(room.getId(),room.getName()));
         }
+        return resultList;
     }
 
     public List<Room> getAll() throws ServiceException {

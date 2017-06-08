@@ -1,30 +1,35 @@
 package by.hotelreservation.service.impl;
 
+import by.hotelreservation.bean.dto.EntityDto;
 import by.hotelreservation.bean.entity.Discount;
 import by.hotelreservation.builder.DiscountBuilder;
+import by.hotelreservation.dao.EntityDao;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.IncorrectDiscountNameException;
-import by.hotelreservation.dao.EntityDao;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorDiscount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service("discountService")
+@Transactional
 public class DiscountServiceImpl implements CrudServiceExtended<Discount> {
     @Autowired
     private EntityDao<Discount> discountDao;
 
-    public List<String> getAllHeaders() throws ServiceException {
-        try {
-            return null;// discountDao.getDiscountHeaders();
-        }catch (Exception e){
-            throw new ServiceException(e);
+    public List<EntityDto> getAllHeaders() throws ServiceException {
+        List<EntityDto> resultList = new ArrayList<>();
+        List<Discount> discountList = getAll();
+        for (Discount discount: discountList) {
+            resultList.add(new EntityDto(discount.getId(),discount.getName()));
         }
+        return resultList;
     }
 
     public List<Discount> getAll() throws ServiceException {

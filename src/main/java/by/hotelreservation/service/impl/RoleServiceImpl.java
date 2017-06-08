@@ -1,31 +1,35 @@
 package by.hotelreservation.service.impl;
 
+import by.hotelreservation.bean.dto.EntityDto;
 import by.hotelreservation.bean.entity.Role;
 import by.hotelreservation.builder.RoleBuilder;
+import by.hotelreservation.dao.EntityDao;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.IncorrectNameRoleException;
 import by.hotelreservation.exception.validateexception.IncorrectRightRoleException;
-import by.hotelreservation.dao.EntityDao;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service("roleService")
 public class RoleServiceImpl implements CrudServiceExtended<Role> {
     @Autowired
     private EntityDao<Role> roleDao;
 
-    public List<String> getAllHeaders() throws ServiceException {
-        try{
-            return null;//roleDao.getRoleHeaders(connection);
-        }catch (Exception e){
-            throw new ServiceException(e);
+    public List<EntityDto> getAllHeaders() throws ServiceException {
+        List<EntityDto> resultList = new ArrayList<>();
+        List<Role> roleList = getAll();
+        for (Role role: roleList) {
+            resultList.add(new EntityDto(role.getId(),role.getNameRole()));
         }
+        return resultList;
     }
 
     public List<Role> getAll() throws ServiceException {
@@ -36,6 +40,7 @@ public class RoleServiceImpl implements CrudServiceExtended<Role> {
         }
     }
 
+    @Transactional
     public List<Role> add(Role entity) throws ServiceException {
         List<Role> roles;
         try {
@@ -47,6 +52,7 @@ public class RoleServiceImpl implements CrudServiceExtended<Role> {
         return roles;
     }
 
+    @Transactional
     public void delete(Role entity) throws ServiceException {
         try {
             roleDao.remove(entity.getId());
@@ -55,6 +61,7 @@ public class RoleServiceImpl implements CrudServiceExtended<Role> {
         }
     }
 
+    @Transactional
     public void update(Role entity) throws ServiceException {
         try {
             roleDao.update(entity);

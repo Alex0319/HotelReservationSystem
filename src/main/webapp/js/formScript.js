@@ -67,8 +67,8 @@ function getUpdateDataUser() {
 
 function sendUpdatePersonalInfo() {
     $.ajax({
-        type: 'POST',
-        url: '/update?' + 'tableName=USER' + getUpdateDataUser() + '&rights='+generatePermissionsUser(),
+        type: 'PUT',
+        url: '/user?' + getUpdateDataUser() + '&rights='+generatePermissionsUser(),
 
         success: function(data) {
 
@@ -152,26 +152,50 @@ function validateUpForm (){
     var password = document.getElementById("passUp");
     var phone = document.getElementById("mobilePhone");
 
-    if (!validEmail(email.value) || !validPassword(password.value) || !validLogin(login.value)
-        || !validPhone(phone.value)  || !validName(name.value)
-        || !validName(surname.value) || !validPassport(passport.value)){
-        alert ("Данные заполнены неверно!");
+    if (!validEmail(email.value)){
+        alert ("Введен некорректный email");
         return  false;
     }
-    alert ("Данные успешно отправлены на сервер!");
+    if(!validPassword(password.value)){
+        alert ("Введен некорректный пароль");
+        return  false;
+    }
+    if(!validLogin(login.value)){
+        alert ("Введен некорректный логин");
+        return  false;
+    }
+    if(!validPhone(phone.value)){
+        alert ("Введен некорректный номер телефона");
+        return  false;
+    }
+    if(!validName(name.value)){
+        alert ("Введено некорректное имя");
+        return  false;
+    }
+    if(!validName(surname.value)){
+        alert ("Введена некорректная фамилия");
+        return  false;
+    }
+    if(!validPassport(passport.value)){
+        alert ("Введен некорректый номер паспорта");
+        return  false;
+    }
     sendUserDataRegistration(login.value,email.value,password.value,phone.value,name.value,surname.value,passport.value);
 }
 
 function validateInForm (){
     var email = document.getElementById("emailIn");
-    var passw = document.getElementById("passIn");
+    var password = document.getElementById("passIn");
 
-    if (!validEmail(email.value) || !validPassword(passw.value)){
-        alert ("Данные заполнены неверно!");
+    if (!validEmail(email.value)){
+        alert ("Введен некорректный email");
         return  false;
     }
-    alert ("Данные успешно отправлены на сервер!");
-    sendUserDataLogin(email.value,passw.value);
+    if(!validPassword(password.value)){
+        alert ("Введен некорректный пароль");
+        return  false;
+    }
+    sendUserDataLogin(email.value,password.value);
 }
 
 function LogOut() {

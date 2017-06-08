@@ -77,36 +77,29 @@ function updateData(obj) {
     ($('#myModalUpdate').find('.btn.btn-default')[0]).addEventListener("click", getUpdatedData);
     ($('#myModalUpdate').find('.close')[0]).addEventListener("click", getUpdatedData);
 
-    var arrayValues = new Array();
-    $(obj).each(function(){
-        $("td",this).each(function(){
-            arrayValues.push(this)
-        });
-    });
+    var arrayValues = Data[obj.rowIndex - 1];
 
-    arrayValues.pop();
-    arrayValues.pop();
     var i = 0;
     console.log(arrayValues);
     $(editBody).each(function(){
         $("div",this).each(function(){
             if(this.className=='col-sm-8') {
                 if((this.firstElementChild).childNodes.length==0)
-                    $(this.firstElementChild).val(arrayValues[i].innerHTML);
+                    $(this.firstElementChild).val(arrayValues[this.firstElementChild.id]);
                 i++;
             }
         });
     });
 
     if(Object.keys(arrayObj).length>0){
-        var inputs = obj.getElementsByTagName('input');
         var i = 0;
         for(var arrayType in arrayObj){
             var j = 0;
             while(j!=arrayObj[arrayType].length) {
-                var number = (arrayObj[arrayType])[j].substr(0, (arrayObj[arrayType])[j].indexOf(" "));
-                if ($(inputs[i]).val() == number)
-                    $('select[name=id' + arrayType[0].toUpperCase() + arrayType.slice(1) + ']').val((arrayObj[arrayType])[j]);
+                var number = arrayObj[arrayType][j]['id'];
+
+                if (arrayValues[arrayType]['id'] == number)
+                    $('select[name=id' + arrayType[0].toUpperCase() + arrayType.slice(1) + ']').val(arrayObj[arrayType][j]['id'] + ' ' + arrayObj[arrayType][j]['name']);
                 j++;
             }
             i++;
@@ -140,6 +133,7 @@ function getData(editBody) {
             }
         });
     });
+    console.log(result);
     return result.slice(0,result.length-1);
 }
 
@@ -199,9 +193,7 @@ var mapStringTable = {
     "room":"room",
     "role":"role",
     "reservation_room":"reservation_room",
-    "reservation_parking_space":"reservation_parking_space",
     "reservation":"reservation",
-    "parkingSpace":"parking_space",
     "discount":"discount"
 };
 
@@ -233,47 +225,41 @@ function formParams(rowIndex) {
     return resultParams.slice(0,resultParams.length-1);
 }
 
-function generateOption(arrayObj, value, arrayType) {
+function generateOption(obj) {
     var option = document.createElement("option");
-    option.value = arrayObj[arrayType][value];
-    option.text = arrayObj[arrayType][value];
+    option.value = obj['id'] + ' ' + obj['name'];
+    option.text = obj['id'] + ' ' + obj['name'];
     return option;
 }
 
 function generateChilds(arrayObj) {
     for(var arrayType in arrayObj) {
-        var editBodyUpdate = $('#myModalUpdate').find('#id' + arrayType[0].toUpperCase() + arrayType.slice(1) +'');
-        var editBodyAdd = $('#myModalAdd').find('#id' + arrayType[0].toUpperCase() + arrayType.slice(1) +'');
+        var editBodyUpdate = $('#myModalUpdate').find('#id' + arrayType[0].toUpperCase() + arrayType.slice(1));
+        var editBodyAdd = $('#myModalAdd').find('#id' + arrayType[0].toUpperCase() + arrayType.slice(1));
         if(editBodyUpdate[0].childElementCount==0)
             for(var value in arrayObj[arrayType]) {
-                editBodyUpdate[0].appendChild(generateOption(arrayObj,value,arrayType));
-                editBodyAdd[0].appendChild(generateOption(arrayObj,value,arrayType));
+                var obj = arrayObj[arrayType][value];
+                editBodyUpdate[0].appendChild(generateOption(obj));
+                editBodyAdd[0].appendChild(generateOption(obj));
             }
     }
-}
-
-function formGetAllHeadersRequest() {
-    var result='';
-    for(var value in futureQueryForID) {
-        result = result.concat('tableName=', mapStringTable[value], '&')
-    }
-    return result.slice(0,result.length-1);
 }
 
 function generateSelectChilds() {
-    var tables = formGetAllHeadersRequest();
-    if(tables != '') {
-        $.ajax({
-            type: 'GET',
-            url: '/get_headers?' + tables,
-            success: function (data) {
-                for (var value in futureQueryForID) {
-                    arrayObj[value] = data[mapStringTable[value]];
+    for(var value in futureQueryForID) {
+        (function (val) {
+            $.ajax({
+                type: 'GET',
+                url: mapStringTable[val] + '/get_headers',
+                async: 'false',
+                success: function (data) {
+                    arrayObj[val] = data;
+                    if(arrayObj.length == futureQueryForID.length){
+                        generateChilds(arrayObj);
+                    }
                 }
-                console.log(arrayObj);
-                generateChilds(arrayObj);
-            }
-        });
+            });
+        })(value);
     }
 }
 

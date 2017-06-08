@@ -29,7 +29,7 @@ public class ReservationRoomController {
     public List<Reservation> getAll(){
         List<Reservation> resultList = null;
         try {
-            resultList = reservationRoomService.getAll();
+            resultList = (List<Reservation>) reservationRoomService.getAll();
         }catch (ServiceException e){
             logger.error(e);
         }

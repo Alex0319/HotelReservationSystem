@@ -1,29 +1,34 @@
 package by.hotelreservation.bean.dto;
 
-public class UserDto {
-    private String name;
+import by.hotelreservation.bean.entity.Role;
+import by.hotelreservation.bean.entity.User;
+
+public class UserDto extends EntityDto{
     private String surname;
     private String email;
     private String mobilePhone;
     private String login;
+    private Role role;
+
+    public UserDto(){}
+
+    public UserDto(User user){
+        super(user.getId(), user.getName());
+        this.surname = user.getSurname();
+        this.email = user.getEmail();
+        this.mobilePhone = user.getMobilePhone();
+        this.login = user.getLogin();
+        this.role = user.getRole();
+    }
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
+        int result = 0;
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (mobilePhone != null ? mobilePhone.hashCode() : 0);
         result = 31 * result + (login != null ? login.hashCode() : 0);
         return result;
-    }
-
-    public String getName() {
-
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getSurname() {
@@ -58,6 +63,14 @@ public class UserDto {
         this.login = login;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -69,9 +82,6 @@ public class UserDto {
 
         UserDto userDto = (UserDto) o;
 
-        if (name != null ? !name.equals(userDto.name) : userDto.name != null) {
-            return false;
-        }
         if (surname != null ? !surname.equals(userDto.surname) : userDto.surname != null) {
             return false;
         }

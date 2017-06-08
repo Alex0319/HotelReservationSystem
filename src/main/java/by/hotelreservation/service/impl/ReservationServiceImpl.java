@@ -1,22 +1,25 @@
 package by.hotelreservation.service.impl;
 
+import by.hotelreservation.bean.dto.EntityDto;
 import by.hotelreservation.bean.entity.Reservation;
 import by.hotelreservation.builder.DiscountBuilder;
 import by.hotelreservation.builder.ReservationBuilder;
 import by.hotelreservation.builder.UserBuilder;
+import by.hotelreservation.dao.ReservationDao;
 import by.hotelreservation.exception.DAOException;
 import by.hotelreservation.exception.ServiceException;
 import by.hotelreservation.exception.validateexception.IncorrectCostException;
 import by.hotelreservation.exception.validateexception.IncorrectDateException;
-import by.hotelreservation.dao.ReservationDao;
 import by.hotelreservation.service.CrudServiceExtended;
 import by.hotelreservation.service.validator.ValidatorReservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,12 +28,13 @@ public class ReservationServiceImpl implements CrudServiceExtended<Reservation> 
     @Autowired
     private ReservationDao reservationDao;
 
-    public List<String> getAllHeaders() throws ServiceException {
-        try{
-            return null;//roleDao.getRoleHeaders(connection);
-        }catch (Exception e){
-            throw new ServiceException(e);
+    public List<EntityDto> getAllHeaders() throws ServiceException {
+        List<EntityDto> resultList = new ArrayList<>();
+        List<Reservation> reservationList = getAll();
+        for (Reservation reservation: reservationList) {
+            resultList.add(new EntityDto(reservation.getId(),reservation.getDateIn() + " " + reservation.getDateOut()));
         }
+        return resultList;
     }
 
     public List<Reservation> getAll() throws ServiceException {
@@ -51,6 +55,7 @@ public class ReservationServiceImpl implements CrudServiceExtended<Reservation> 
         return reservation;
     }
 
+    @Transactional
     public List<Reservation> add(Reservation entity) throws ServiceException {
         List<Reservation> reservations;
         try {
@@ -62,6 +67,7 @@ public class ReservationServiceImpl implements CrudServiceExtended<Reservation> 
         return reservations;
     }
 
+    @Transactional
     public void delete(Reservation reservation) throws ServiceException {
         try {
             reservationDao.remove(reservation.getId());
@@ -70,6 +76,7 @@ public class ReservationServiceImpl implements CrudServiceExtended<Reservation> 
         }
     }
 
+    @Transactional
     public void update(Reservation entity) throws ServiceException {
         try {
             reservationDao.update(entity);

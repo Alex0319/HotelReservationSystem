@@ -1,8 +1,9 @@
 package by.hotelreservation.controller;
 
+import by.hotelreservation.bean.dto.EntityDto;
 import by.hotelreservation.bean.entity.Reservation;
 import by.hotelreservation.exception.ServiceException;
-import by.hotelreservation.service.CrudService;
+import by.hotelreservation.service.CrudServiceExtended;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,13 @@ public class ReservationController {
 
     @Autowired
     @Qualifier(value = "reservation")
-    private CrudService<Reservation> reservationService;
+    private CrudServiceExtended<Reservation> reservationService;
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public List<Reservation> getAll(){
         List<Reservation> resultList = null;
         try {
-            resultList = reservationService.getAll();
+            resultList = (List<Reservation>) reservationService.getAll();
         }catch (ServiceException e){
             logger.error(e);
         }
@@ -39,7 +40,7 @@ public class ReservationController {
     public Reservation getById(@PathVariable int id){
         Reservation reservation = null;
         try {
-            reservation = reservationService.getById(id);
+            reservation =(Reservation) reservationService.getById(id);
         }catch (ServiceException e){
             logger.error(e);
         }
@@ -81,4 +82,16 @@ public class ReservationController {
         }
         return result;
     }
+
+    @RequestMapping(value = "get_headers",method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    public List<EntityDto> getAllHeaders(){
+        List<EntityDto> resultList = null;
+        try {
+            resultList = reservationService.getAllHeaders();
+        }catch (ServiceException e){
+            logger.error(e);
+        }
+        return resultList;
+    }
+
 }

@@ -8,12 +8,15 @@ import java.util.regex.Pattern;
 
 public class ValidatorUser extends AbstractValidator {
     public boolean validate(Map<String, String[]> data) throws IncorrectUserNameException, IncorrectPassportNumberException, IncorrectPasswordException, IncorrectLoginException, IncorrectMobilePhoneException, IncorrectUserSurnameException,IncorrectUserEmailException {
-
-        if (validatePassportNumber(data.get("passportNumber")[0])
-                & validateUserName(data.get("name")[0])
+        if(data.containsKey("passportNumber") && !validatePassportNumber(data.get("passportNumber")[0])){
+            return false;
+        }
+        if(data.containsKey("password") && !validatePassportNumber(data.get("password")[0])){
+            return false;
+        }
+        if (validateUserName(data.get("name")[0])
                 & validateUserSurName(data.get("surname")[0])
                 & validateMobilePhone(data.get("mobilePhone")[0])
-                & validatePassword(data.get("password")[0])
                 & validateLogin(data.get("login")[0])
                 & validateEmail(data.get("email")[0])) {
             return true;

@@ -1,6 +1,7 @@
 package by.hotelreservation.bean.entity;
 
 import by.hotelreservation.builder.RoomBuilder;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -18,10 +19,8 @@ public class Room extends AbstractEntity {
     @JoinColumn(name = "idRoomType")
     private RoomType roomType;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="reservation_room",
-            joinColumns = @JoinColumn(name = "idRoom"),
-            inverseJoinColumns = @JoinColumn(name = "idReservation"))
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "rooms")
+    @JsonBackReference
     private Set<Reservation> reservations = new HashSet<>();
 
     public Room(){super();}

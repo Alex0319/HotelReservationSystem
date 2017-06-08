@@ -1,6 +1,7 @@
 package by.hotelreservation.bean.entity;
 
 import by.hotelreservation.builder.ReservationBuilder;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,8 +11,12 @@ import java.util.Set;
 @Entity
 @Table(name = "reservation")
 public class Reservation extends AbstractEntity {
+    @Temporal(TemporalType.DATE)
     private Date dateIn;
+
+    @Temporal(TemporalType.DATE)
     private Date dateOut;
+
     private int costAdditionalServices;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -26,6 +31,7 @@ public class Reservation extends AbstractEntity {
     @JoinTable(name = "reservation_room",
             joinColumns = @JoinColumn(name = "idReservation"),
             inverseJoinColumns = @JoinColumn(name = "idRoom"))
+    @JsonBackReference
     private Set<Room> rooms = new HashSet<>();
 
     public Reservation(){super();}

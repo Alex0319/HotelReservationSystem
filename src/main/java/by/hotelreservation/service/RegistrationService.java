@@ -3,6 +3,8 @@ package by.hotelreservation.service;
 import by.hotelreservation.bean.entity.User;
 import by.hotelreservation.exception.ServiceException;
 
+import java.util.Map;
+
 public interface RegistrationService {
-    User registration(User user)  throws ServiceException;
+    User registration(Map<String, String[]> params)  throws ServiceException;
 }

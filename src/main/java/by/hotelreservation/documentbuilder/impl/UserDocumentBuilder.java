@@ -1,13 +1,13 @@
 package by.hotelreservation.documentbuilder.impl;
 
-import by.hotelreservation.bean.entity.User;
+import by.hotelreservation.bean.dto.UserDto;
 import by.hotelreservation.documentbuilder.PdfDocumentBuilder;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.AcroFields;
 
 import java.io.IOException;
 
-public class UserDocumentBuilder extends PdfDocumentBuilder<User>{
+public class UserDocumentBuilder extends PdfDocumentBuilder<UserDto>{
     private UserDocumentBuilder(){
         super("/documents/user_blank.pdf", "User.pdf");
     }
@@ -21,7 +21,7 @@ public class UserDocumentBuilder extends PdfDocumentBuilder<User>{
     }
 
     @Override
-    protected void setFields(AcroFields form, User documentData) throws DocumentException{
+    protected void setFields(AcroFields form, UserDto documentData) throws DocumentException{
         try {
             form.setField("name", documentData.getName());
             form.setField("surname", documentData.getSurname());
